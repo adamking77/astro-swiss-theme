@@ -17,12 +17,35 @@ Import layouts and components into your Astro pages:
 ---
 import BaseLayout from 'gzs-astro-midcentury-theme/layouts/BaseLayout.astro';
 import { Button } from 'gzs-astro-midcentury-theme/components/ui/button.tsx';
+import SimpleQualificationModal from 'gzs-astro-midcentury-theme/components/interactive/SimpleQualificationModal.tsx';
 ---
 <BaseLayout title="My Page" description="An example page using the theme.">
   <h1>Hello from the Theme!</h1>
   <Button>Click Me</Button>
+  <SimpleQualificationModal client:load triggerText="Get Started" />
 </BaseLayout>
 ```
+
+## New Components
+
+### QualificationForm
+A sophisticated multi-step form with Swiss design principles:
+- **Typeform-style UX**: Full viewport, step-by-step progression
+- **Swiss Typography**: Clean, light typography with proper spacing
+- **Progress Tracking**: Visual progress indicator
+- **Responsive Design**: Works seamlessly on all devices
+- **Modal Support**: Can be used standalone or within a modal
+
+### SimpleQualificationModal
+An elegant modal wrapper for the qualification form:
+- **Theme-aware**: Adapts to light/dark modes
+- **Backdrop Blur**: Modern backdrop blur effect
+- **Smooth Animations**: Framer Motion powered transitions
+- **Customizable Trigger**: Use custom trigger elements or default button
+
+### FormLayout
+A specialized layout for form pages with optimized spacing and navigation.
+
 Refer to `docs/THEME_ARCHITECTURE.md` for more details on available components and customization.
 
 ## Customization
