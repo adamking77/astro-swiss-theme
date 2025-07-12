@@ -55,8 +55,8 @@ const categories = Array.from(new Set(reportsData.map(report => report.category)
           <div class="text-sm font-light text-foreground/60 tracking-wider">CATEGORIES</div>
         </div>
         <div class="text-center space-y-2">
-          <div class="text-3xl font-light text-foreground">2024</div>
-          <div class="text-sm font-light text-foreground/60 tracking-wider">LATEST YEAR</div>
+          <div class="text-3xl font-light text-foreground">{new Date().getFullYear()}</div>
+          <div class="text-sm font-light text-foreground/60 tracking-wider">CURRENT YEAR</div>
         </div>
       </div>
     </div>

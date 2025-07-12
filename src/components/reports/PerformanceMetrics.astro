@@ -1,32 +1,52 @@
 ---
-// Data for performance metrics
-const metrics = [
-  { label: "Revenue Growth", value: "142%", trend: "up", percentage: 85 },
-  { label: "Client Retention", value: "94%", trend: "stable", percentage: 94 },
-  { label: "Market Share", value: "28%", trend: "up", percentage: 28 },
-  { label: "Efficiency", value: "86%", trend: "up", percentage: 86 },
-];
+interface Props {
+  data?: {
+    title?: string;
+    description?: string;
+    metrics?: Array<{
+      label: string;
+      value: string;
+      trend: 'up' | 'down' | 'stable';
+      percentage: number;
+    }>;
+  };
+}
+
+const { data = {} } = Astro.props;
+
+// Default fallback data
+const defaultData = {
+  title: "Performance",
+  description: "Key performance indicators demonstrate consistent growth and operational excellence across all measured dimensions.",
+  metrics: [
+    { label: "Revenue Growth", value: "142%", trend: "up" as const, percentage: 85 },
+    { label: "Client Retention", value: "94%", trend: "stable" as const, percentage: 94 },
+    { label: "Market Share", value: "28%", trend: "up" as const, percentage: 28 },
+    { label: "Efficiency", value: "86%", trend: "up" as const, percentage: 86 },
+  ]
+};
+
+const performanceData = { ...defaultData, ...data };
 ---
 
-<section class="py-32 lg:py-40 bg-secondary/30" id="performance-metrics-section">
+<section class="py-16 lg:py-20 bg-secondary/30" id="performance-metrics-section">
   <div class="max-w-4xl mx-auto px-20 lg:px-24">
     <div class="grid lg:grid-cols-12 gap-16">
       <div class="lg:col-span-4">
         <div class="space-y-8 sticky top-32 animate-fade-in">
           <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground hover:scale-105 transition-transform duration-300">
-            Performance
+            {performanceData.title}
           </h2>
           <div class="w-12 h-px bg-foreground/20 transition-all duration-1000 hover:w-24"></div>
           <p class="text-base font-light text-foreground leading-relaxed">
-            Key performance indicators demonstrate consistent growth and operational excellence 
-            across all measured dimensions.
+            {performanceData.description}
           </p>
         </div>
       </div>
 
       <div class="lg:col-span-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {metrics.map((metric, index) => (
+          {performanceData.metrics.map((metric, index) => (
             <div
               class="group relative cursor-pointer hover:scale-105 transition-all duration-300 animate-fade-in"
               style={`animation-delay: ${index * 150}ms;`}

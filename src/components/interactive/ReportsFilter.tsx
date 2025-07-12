@@ -1,17 +1,27 @@
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
-import type { Report } from '../../data/reports';
-import ReportCard from '../reports/ReportCard.astro';
+import type { CollectionEntry } from 'astro:content';
 
 interface ReportsFilterProps {
-  reports: Report[];
+  reports: CollectionEntry<'reports'>['data'][];
+  basePath?: string; // Configurable base path for links
+  showStats?: boolean; // Whether to show statistics
+  customCategories?: string[]; // Override categories
+  itemsPerPage?: number; // For future pagination
+  className?: string; // Custom CSS classes
 }
 
-const ReportsFilter = ({ reports }: ReportsFilterProps) => {
+const ReportsFilter = ({ 
+  reports, 
+  basePath = '/reports',
+  showStats = true,
+  customCategories,
+  className = ''
+}: ReportsFilterProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   
-  const categories = ['All', ...Array.from(new Set(reports.map(report => report.category)))];
+  const categories = customCategories || ['All', ...Array.from(new Set(reports.map(report => report.category)))];
   
   const filteredReports = useMemo(() => {
     return reports.filter(report => {
@@ -27,7 +37,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
   const regularReports = filteredReports.filter(report => !report.featured);
 
   return (
-    <div className="space-y-20">
+    <div className={`space-y-20 ${className}`}>
       {/* Search and Filter */}
       <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
         <div className="relative flex-1 max-w-md">
@@ -71,7 +81,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
             {featuredReports.map((report) => (
               <div key={report.id} className="lg:col-span-2">
                 <a 
-                  href={`/reports/${report.slug}/`}
+                  href={`${basePath}/${report.slug}/`}
                   className="group block transition-all duration-300 hover:scale-105"
                 >
                   <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:shadow-xl transition-all duration-300">
@@ -143,7 +153,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
             {regularReports.map((report) => (
               <a 
                 key={report.id}
-                href={`/reports/${report.slug}/`}
+                href={`${basePath}/${report.slug}/`}
                 className="group block transition-all duration-300 hover:scale-105"
               >
                 <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:shadow-xl transition-all duration-300">

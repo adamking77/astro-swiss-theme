@@ -3,12 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTA from '../../components/sections/CTA.astro';
 import { getCollection } from 'astro:content';
 import ExecutiveSummary from '../../components/reports/ExecutiveSummary.astro';
-import DataVisualization from '../../components/reports/DataVisualization.tsx';
+import DataVisualization from '../../components/reports/DataVisualization.astro';
 import FinancialHighlights from '../../components/reports/FinancialHighlights.astro';
 import ClientInsights from '../../components/reports/ClientInsights.astro';
 import MarketAnalysis from '../../components/reports/MarketAnalysis.astro';
 import IndustryTrends from '../../components/reports/IndustryTrends.astro';
 import FutureOutlook from '../../components/reports/FutureOutlook.astro';
+import PerformanceMetrics from '../../components/reports/PerformanceMetrics.astro';
+import RegionalPerformance from '../../components/reports/RegionalPerformance.astro';
+import TechnologyStack from '../../components/reports/TechnologyStack.astro';
 
 export async function getStaticPaths() {
   const reports = await getCollection('reports');
@@ -24,50 +27,11 @@ if (!report) {
   return Astro.redirect('/404');
 }
 
-// Define which components to render for each report (matching React version)
-const getReportSections = (slug: string) => {
-  switch (slug) {
-    case '2024-strategic-business-intelligence':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'ClientInsights', key: 'insights' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'market-performance-analysis-2024':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'MarketAnalysis', key: 'market' },
-        { component: 'IndustryTrends', key: 'trends' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'regional-performance-global-expansion':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'MarketAnalysis', key: 'market' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'ClientInsights', key: 'insights' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'technology-infrastructure-report':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'IndustryTrends', key: 'trends' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    default:
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'DataVisualization', key: 'data-viz' }
-      ];
-  }
-};
-
-const reportSections = getReportSections(report.slug);
+// Use sections from content data or fallback to default
+const reportSections = report.sections || [
+  { component: 'ExecutiveSummary', key: 'executive' },
+  { component: 'DataVisualization', key: 'data-viz' }
+];
 const allReports = await getCollection('reports');
 const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 2).map(r => r.data);
 ---
@@ -168,17 +132,23 @@ const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 
   </section>
 
   <!-- Report Sections -->
-  {reportSections.map((section) => (
-    <div key={section.key}>
-      {section.component === 'ExecutiveSummary' && <ExecutiveSummary />}
-      {section.component === 'DataVisualization' && <DataVisualization client:visible />}
-      {section.component === 'FinancialHighlights' && <FinancialHighlights />}
-      {section.component === 'ClientInsights' && <ClientInsights />}
-      {section.component === 'MarketAnalysis' && <MarketAnalysis />}
-      {section.component === 'IndustryTrends' && <IndustryTrends />}
-      {section.component === 'FutureOutlook' && <FutureOutlook />}
-    </div>
-  ))}
+  {reportSections.map((section) => {
+    const sectionData = report.sectionData?.[section.key] || section.data || {};
+    return (
+      <div key={section.key}>
+        {section.component === 'ExecutiveSummary' && <ExecutiveSummary data={sectionData} />}
+        {section.component === 'PerformanceMetrics' && <PerformanceMetrics data={sectionData} />}
+        {section.component === 'RegionalPerformance' && <RegionalPerformance data={sectionData} />}
+        {section.component === 'TechnologyStack' && <TechnologyStack data={sectionData} />}
+        {section.component === 'DataVisualization' && <DataVisualization data={sectionData} />}
+        {section.component === 'FinancialHighlights' && <FinancialHighlights data={sectionData} />}
+        {section.component === 'ClientInsights' && <ClientInsights data={sectionData} />}
+        {section.component === 'MarketAnalysis' && <MarketAnalysis data={sectionData} />}
+        {section.component === 'IndustryTrends' && <IndustryTrends data={sectionData} />}
+        {section.component === 'FutureOutlook' && <FutureOutlook data={sectionData} />}
+      </div>
+    );
+  })}
 
   <!-- Related Reports -->
   {relatedReports.length > 0 && (
