@@ -1,0 +1,46 @@
+---
+import ContentSplit from './layouts/ContentSplit.astro';
+import MinimalList from './layouts/MinimalList.astro';
+
+export interface Props {
+  components?: Array<{
+    type: 'ContentSplit' | 'MinimalList';
+    [key: string]: any;
+  }>;
+}
+
+const { components = [] } = Astro.props;
+---
+
+{components && components.length > 0 && (
+  <div class="content-components space-y-0">
+    {components.map((component) => {
+      switch (component.type) {
+        case 'ContentSplit':
+          return (
+            <ContentSplit
+              leftTitle={component.leftTitle}
+              leftDescription={component.leftDescription}
+              rightTitle={component.rightTitle}
+              rightItems={component.rightItems}
+              rightChart={component.rightChart}
+              reversed={component.reversed}
+            />
+          );
+        
+        case 'MinimalList':
+          return (
+            <MinimalList
+              title={component.title}
+              items={component.items}
+              numbered={component.numbered}
+            />
+          );
+        
+        default:
+          console.warn(`Unknown component type: ${component.type}`);
+          return null;
+      }
+    })}
+  </div>
+)}

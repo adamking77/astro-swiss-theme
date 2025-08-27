@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from "@/components/ui/use-toast"; // Added useToast
+import ScrollAnimator from '../interactive/ScrollAnimator';
 
 const Contact = () => {
   const { toast } = useToast(); // Added toast hook
@@ -24,35 +25,38 @@ const Contact = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-24">
             <div className="lg:col-span-5">
-              <div className="space-y-12">
-                <div className="space-y-8">
-                  <h2 className="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
-                    Contact
-                  </h2>
-                  <div className="w-12 h-px bg-foreground/20"></div>
-                </div>
-                
-                <div className="space-y-8">
-                  <p className="text-lg font-light text-foreground/70 leading-relaxed">
-                    Ready to transform your business? We're here to listen and craft solutions 
-                    that drive meaningful results.
-                  </p>
-                </div>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="font-light mb-2 text-foreground">Email</h3>
-                    <p className="text-foreground/60 font-light">hello@consulting.com</p>
+              <ScrollAnimator threshold={0.2} duration={800}>
+                <div className="space-y-12">
+                  <div className="space-y-8">
+                    <h2 className="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                      Contact
+                    </h2>
+                    <div className="w-12 h-px bg-foreground/20"></div>
                   </div>
-                  <div>
-                    <h3 className="font-light mb-2 text-foreground">Phone</h3>
-                    <p className="text-foreground/60 font-light">+1 (555) 123-4567</p>
+                  
+                  <div className="space-y-8">
+                    <p className="text-lg font-light text-foreground/70 leading-relaxed">
+                      Ready to transform your business? We're here to listen and craft solutions 
+                      that drive meaningful results.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-8">
+                    <div>
+                      <h3 className="font-light mb-2 text-foreground">Email</h3>
+                      <p className="text-foreground/60 font-light">hello@consulting.com</p>
+                    </div>
+                    <div>
+                      <h3 className="font-light mb-2 text-foreground">Phone</h3>
+                      <p className="text-foreground/60 font-light">+1 (555) 123-4567</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollAnimator>
             </div>
             
             <div className="lg:col-span-6 lg:col-start-7">
+              <ScrollAnimator threshold={0.2} duration={800} delay={200}>
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
@@ -99,13 +103,14 @@ const Contact = () => {
                 
                 <Button 
                   type="submit" 
-                  variant="outline"
-                  size="lg" 
-                  className="font-light border-foreground/20 hover:border-foreground/40"
+                  variant="pill"
+                  size="pill-lg" 
+                  withSwissAccent={true}
                 >
                   Send Message
                 </Button>
               </form>
+              </ScrollAnimator>
             </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
 {
-  "name": "gzs-astro-midcentury-theme",
+  "name": "astro-swiss-theme",
   "version": "0.1.0",
-  "description": "A reusable Astro theme based on the Midcentury Static Design.",
+  "description": "A reusable Astro theme based on Swiss design principles.",
   "type": "module",
   "keywords": [
     "astro",
     "astro-theme",
-    "tailwindcss"
+    "tailwindcss",
+    "swiss-design"
   ],
   "author": "",
   "license": "MIT",
@@ -17,11 +18,20 @@
     "postcss.config.mjs",
     "tsconfig.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "docs/"
   ],
   "exports": {
     ".": "./astro.config.mjs",
-    "./components/*": "./src/components/*",
+    "./components/ui": "./src/components/ui/index.ts",
+    "./components/ui/*": "./src/components/ui/*",
+    "./components/sections": "./src/components/sections/index.ts",
+    "./components/sections/*": "./src/components/sections/*",
+    "./components/layouts": "./src/components/layouts/index.ts",
+    "./components/layouts/*": "./src/components/layouts/*",
+    "./components/interactive": "./src/components/interactive/index.ts",
+    "./components/interactive/*": "./src/components/interactive/*",
+    "./layouts": "./src/layouts/index.ts",
     "./layouts/*": "./src/layouts/*",
     "./lib/*": "./src/lib/*",
     "./styles/*": "./src/styles/*",
@@ -37,6 +47,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.4",
     "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/tailwind": "^6.0.2",
@@ -67,6 +78,7 @@
     "@radix-ui/react-toggle": "^1.1.9",
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "astro": "^5.9.4",

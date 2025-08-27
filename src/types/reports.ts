@@ -310,3 +310,44 @@ export interface ReportEntry {
   templateVersion?: string;
   lastModified?: string;
 }
+
+// Enhanced types based on improved content collection schema
+import type { CollectionEntry } from 'astro:content';
+
+// Define the valid categories as a strict type (matching content config)
+export type StrictReportCategory = 
+  | "Strategic" 
+  | "Financial" 
+  | "Market Analysis" 
+  | "Technology" 
+  | "Performance" 
+  | "Regional";
+
+// Extract the schema type for reports with strict validation
+export type StrictReportData = CollectionEntry<'reports'>['data'];
+
+// Utility type for report filtering with strict types
+export interface StrictReportFilters {
+  category?: StrictReportCategory;
+  tags?: string[];
+  featured?: boolean;
+  published?: boolean;
+  searchTerm?: string;
+}
+
+// Type for report statistics with strict categories
+export interface StrictReportStats {
+  totalReports: number;
+  featuredReports: number;
+  categoryCounts: Record<StrictReportCategory, number>;
+  popularTags: Array<{ tag: string; count: number }>;
+}
+
+// Type for report sorting options
+export type SortOption = 'date-desc' | 'date-asc' | 'title' | 'category' | 'featured';
+
+// Helper type for components that work with validated report data
+export interface ValidatedReportProps {
+  report: StrictReportData & { id: string; slug: string };
+  className?: string;
+}

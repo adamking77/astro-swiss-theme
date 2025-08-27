@@ -1,4 +1,6 @@
 ---
+import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
+
 interface Event {
   date: string;
   title: string;
@@ -16,21 +18,25 @@ const { title, events } = Astro.props;
 <section class="py-16 lg:py-24">
   <div class="max-w-4xl mx-auto px-6 lg:px-8">
     <div class="space-y-8">
-      <h3 class="text-xl font-light text-foreground tracking-tight mb-8">
-        {title}
-      </h3>
+      <ScrollAnimator client:load threshold={0.2} duration={800}>
+        <h3 class="text-xl font-light text-foreground tracking-tight mb-8">
+          {title}
+        </h3>
+      </ScrollAnimator>
       <div class="space-y-6">
-        {events.map((event) => (
-          <div class="space-y-2">
-            <div class="flex items-center space-x-4">
-              <div class="text-sm font-light text-foreground/50">{event.date}</div>
-              <div class="w-8 h-px bg-foreground/20"></div>
-              <div class="text-sm font-light text-foreground">{event.title}</div>
+        {events.map((event, index) => (
+          <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 80}>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-4">
+                <div class="text-sm font-light text-foreground/50">{event.date}</div>
+                <div class="w-8 h-px bg-foreground/20"></div>
+                <div class="text-sm font-light text-foreground">{event.title}</div>
+              </div>
+              <p class="text-xs font-light text-foreground/60 ml-16">
+                {event.description}
+              </p>
             </div>
-            <p class="text-xs font-light text-foreground/60 ml-16">
-              {event.description}
-            </p>
-          </div>
+          </ScrollAnimator>
         ))}
       </div>
     </div>

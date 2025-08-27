@@ -87,15 +87,15 @@ const techData = { ...defaultData, ...data };
                 {techData.sections.cloudArchitecture.description}
               </p>
               
-              <h3 class="text-xl font-light text-foreground mb-4">{techData.sections.analytics.title}</h3>
+              <h3 class="text-xl font-light text-foreground mb-4">{techData.sections?.analytics?.title}</h3>
               <p class="text-base font-light text-foreground/80 leading-relaxed mb-6">
-                {techData.sections.analytics.description}
+                {techData.sections?.analytics?.description}
               </p>
               
-              <div class="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-lg p-6 mt-8">
-                <h4 class="text-lg font-light text-foreground mb-3">{techData.sections.impact.title}</h4>
+              <div class="bg-gradient-to-r from-foreground/10 to-foreground/5 border border-foreground/20 rounded-lg p-6 mt-8">
+                <h4 class="text-lg font-light text-foreground mb-3">{techData.sections?.impact?.title}</h4>
                 <p class="text-sm font-light text-foreground/70 leading-relaxed">
-                  {techData.sections.impact.description}
+                  {techData.sections?.impact?.description}
                 </p>
               </div>
             </div>

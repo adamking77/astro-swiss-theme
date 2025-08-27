@@ -97,11 +97,11 @@ const isVisible = true; // Simulate visibility
                       <div class="flex-1 relative h-full flex flex-col justify-end">
                         <div class="relative">
                           <!-- Data points -->
-                          <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <div class="absolute bottom-8 left-1/4 transform -translate-x-1/2 w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <div class="absolute bottom-12 left-3/4 transform -translate-x-1/2 w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-foreground/60 rounded-full"></div>
+                          <div class="absolute bottom-8 left-1/4 transform -translate-x-1/2 w-2 h-2 bg-foreground/60 rounded-full"></div>
+                          <div class="absolute bottom-12 left-3/4 transform -translate-x-1/2 w-2 h-2 bg-foreground/60 rounded-full"></div>
                           <!-- Trend line simulation -->
-                          <div class="h-16 bg-gradient-to-t from-blue-500/30 to-transparent rounded-t"></div>
+                          <div class="h-16 bg-gradient-to-t from-foreground/30 to-transparent rounded-t"></div>
                         </div>
                         <span class="text-xs text-foreground/60 text-center mt-1">Cloud</span>
                       </div>
@@ -145,7 +145,7 @@ const isVisible = true; // Simulate visibility
                 <!-- Chart Legend -->
                 <div class="flex justify-center items-center space-x-4 mt-3 pt-3 border-t border-foreground/10">
                   <div class="flex items-center space-x-1">
-                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <div class="w-2 h-2 bg-foreground/60 rounded-full"></div>
                     <span class="text-xs font-light text-foreground/70">Cloud: 94%</span>
                   </div>
                   <div class="flex items-center space-x-1">

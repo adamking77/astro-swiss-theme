@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 export default {
   darkMode: ["class"],
@@ -16,6 +17,11 @@ export default {
       }
     },
     extend: {
+      transitionDuration: {
+        '800': '800ms',
+        '1200': '1200ms',
+        '1500': '1500ms'
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -89,8 +95,85 @@ export default {
       animation: {
         'fade-in': 'fade-in 0.8s ease-out',
         'slide-up': 'slide-up 0.6s ease-out'
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': 'hsl(var(--foreground))',
+            '--tw-prose-headings': 'hsl(var(--foreground))',
+            '--tw-prose-lead': 'hsl(var(--foreground))',
+            '--tw-prose-links': 'hsl(var(--primary))',
+            '--tw-prose-bold': 'hsl(var(--foreground))',
+            '--tw-prose-counters': 'hsl(var(--muted-foreground))',
+            '--tw-prose-bullets': 'hsl(var(--muted-foreground))',
+            '--tw-prose-hr': 'hsl(var(--border))',
+            '--tw-prose-quotes': 'hsl(var(--foreground))',
+            '--tw-prose-quote-borders': 'hsl(var(--border))',
+            '--tw-prose-captions': 'hsl(var(--muted-foreground))',
+            '--tw-prose-code': 'hsl(var(--foreground))',
+            '--tw-prose-pre-code': 'hsl(var(--foreground))',
+            '--tw-prose-pre-bg': 'hsl(var(--accent))',
+            '--tw-prose-th-borders': 'hsl(var(--border))',
+            '--tw-prose-td-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-body': 'hsl(var(--foreground))',
+            '--tw-prose-invert-headings': 'hsl(var(--foreground))',
+            '--tw-prose-invert-lead': 'hsl(var(--foreground))',
+            '--tw-prose-invert-links': 'hsl(var(--primary))',
+            '--tw-prose-invert-bold': 'hsl(var(--foreground))',
+            '--tw-prose-invert-counters': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-bullets': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-hr': 'hsl(var(--border))',
+            '--tw-prose-invert-quotes': 'hsl(var(--foreground))',
+            '--tw-prose-invert-quote-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-captions': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-code': 'hsl(var(--foreground))',
+            '--tw-prose-invert-pre-code': 'hsl(var(--foreground))',
+            '--tw-prose-invert-pre-bg': 'hsl(var(--accent))',
+            '--tw-prose-invert-th-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-td-borders': 'hsl(var(--border))',
+            
+            // Match site's heading styles
+            'h1': {
+              fontWeight: '300',
+              fontSize: '2.25rem', // text-4xl
+              lineHeight: '1.1',
+              letterSpacing: '-0.025em', // tracking-tight
+            },
+            'h2': {
+              fontWeight: '300',
+              fontSize: '1.875rem', // text-3xl
+              lineHeight: '1.1',
+              letterSpacing: '-0.025em', // tracking-tight
+            },
+            'h3': {
+              fontWeight: '300',
+              fontSize: '1.5rem', // text-2xl
+              lineHeight: '1.1',
+              letterSpacing: '-0.025em', // tracking-tight
+            },
+            'h4': {
+              fontWeight: '300',
+              fontSize: '1.25rem', // text-xl
+              lineHeight: '1.1',
+              letterSpacing: '-0.025em', // tracking-tight
+            },
+            'p': {
+              fontWeight: '300',
+              lineHeight: '1.6',
+            },
+            'strong': {
+              fontWeight: '500',
+            },
+            'a': {
+              textDecoration: 'underline',
+            },
+            'blockquote': {
+              fontStyle: 'normal',
+            },
+          },
+        },
+      },
     }
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, typography],
 };

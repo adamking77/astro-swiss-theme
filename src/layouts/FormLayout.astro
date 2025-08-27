@@ -1,7 +1,6 @@
 ---
 // Import global styles
 import '../styles/global.css';
-import { ThemeProvider } from '../components/ThemeProvider.tsx';
 import Navigation from '../components/Navigation.astro'; // New import
 import Footer from '../components/sections/Footer.astro'; // Import Footer
 import ScrollToTop from '../components/interactive/ScrollToTop.tsx'; // Adjusted path
@@ -57,14 +56,12 @@ const initialTheme = Astro.request.headers.get('cookie')?.includes('astro-ui-the
     </script>
 </head>
 <body class="min-h-screen bg-background font-sans antialiased">
-  <ThemeProvider client:load defaultTheme="system" storageKey="astro-ui-theme">
-    <Navigation />
-    <main class="flex-1 pt-20 lg:pt-24">
-      <slot />
-    </main>
-    <Toaster client:load />
-    <ScrollToTop client:idle />
-    <Footer />
-  </ThemeProvider>
+  <Navigation />
+  <main class="flex-1 pt-20 lg:pt-24">
+    <slot />
+  </main>
+  <Toaster client:visible />
+  <ScrollToTop client:visible />
+  <Footer />
 </body>
 </html>

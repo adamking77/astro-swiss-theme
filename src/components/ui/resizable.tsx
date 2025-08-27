@@ -20,7 +20,7 @@ const ResizablePanelGroup = ({
 );
 
 const ResizablePanel = React.forwardRef<
-  React.ElementRef<typeof ResizablePrimitive.Panel>,
+  React.ComponentRef<typeof ResizablePrimitive.Panel>,
   React.ComponentPropsWithoutRef<typeof ResizablePrimitive.Panel>
 >((props, ref) => (
   <ResizablePrimitive.Panel

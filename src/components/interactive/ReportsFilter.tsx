@@ -41,18 +41,18 @@ const ReportsFilter = ({
       {/* Search and Filter */}
       <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/40" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/60" />
           <input
             type="text"
             placeholder="Search reports..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-background border border-foreground/10 rounded-lg text-sm font-light text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-foreground/30 transition-colors duration-300"
+            className="w-full pl-10 pr-4 py-3 bg-background border border-foreground/10 rounded-lg text-sm font-light text-foreground placeholder:text-foreground/60 focus:outline-none focus:border-foreground/30 transition-colors duration-300"
           />
         </div>
         
         <div className="flex items-center space-x-4">
-          <Filter className="h-4 w-4 text-foreground/40" />
+          <Filter className="h-4 w-4 text-foreground/60" />
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
@@ -93,13 +93,13 @@ const ReportsFilter = ({
                               {report.category}
                             </span>
                             {report.featured && (
-                              <span className="px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-light rounded-full">
+                              <span className="px-3 py-1 bg-foreground/10 text-foreground text-xs font-light rounded-full">
                                 Featured
                               </span>
                             )}
                           </div>
                         </div>
-                        <div className="text-xs font-light text-foreground/40 tracking-wider">
+                        <div className="text-xs font-light text-foreground/60 tracking-wider">
                           {String(report.id).padStart(2, '0')}
                         </div>
                       </div>
@@ -115,7 +115,7 @@ const ReportsFilter = ({
                       </div>
 
                       <div className="flex items-center justify-between pt-4 border-t border-foreground/10">
-                        <div className="flex items-center space-x-4 text-xs font-light text-foreground/50">
+                        <div className="flex items-center space-x-4 text-xs font-light text-foreground/70">
                           <div className="flex items-center space-x-1">
                             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -130,7 +130,7 @@ const ReportsFilter = ({
                           </div>
                         </div>
                         
-                        <div className="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
+                        <div className="text-xs font-light text-foreground group-hover:text-foreground/70 transition-colors duration-300">
                           Read Report →
                         </div>
                       </div>
@@ -166,7 +166,7 @@ const ReportsFilter = ({
                           </span>
                         </div>
                       </div>
-                      <div className="text-xs font-light text-foreground/40 tracking-wider">
+                      <div className="text-xs font-light text-foreground/60 tracking-wider">
                         {String(report.id).padStart(2, '0')}
                       </div>
                     </div>
@@ -182,7 +182,7 @@ const ReportsFilter = ({
                     </div>
 
                     <div className="flex items-center justify-between pt-4 border-t border-foreground/10">
-                      <div className="flex items-center space-x-4 text-xs font-light text-foreground/50">
+                      <div className="flex items-center space-x-4 text-xs font-light text-foreground/70">
                         <div className="flex items-center space-x-1">
                           <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -197,7 +197,7 @@ const ReportsFilter = ({
                         </div>
                       </div>
                       
-                      <div className="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
+                      <div className="text-xs font-light text-foreground group-hover:text-foreground/70 transition-colors duration-300">
                         Read Report →
                       </div>
                     </div>

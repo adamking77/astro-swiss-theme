@@ -1,20 +1,20 @@
 ---
 import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
 
-interface GridItem {
+export interface GridItem {
   label: string;
   value: string;
   description?: string;
 }
 
-interface Props {
+export interface Props {
   primaryText: string;
   accentText: string;
   gridTitle: string;
   gridItems: GridItem[];
 }
 
-const { primaryText, accentText, gridTitle, gridItems } = Astro.props;
+const { primaryText, accentText, gridTitle, gridItems } = Astro.props as Props;
 ---
 
 <section class="hybrid-showcase py-24 lg:py-32 bg-foreground/5">
@@ -40,25 +40,26 @@ const { primaryText, accentText, gridTitle, gridItems } = Astro.props;
     </ScrollAnimator>
 
     <!-- Grid Showcase Section -->
-    <ScrollAnimator client:load threshold={0.2} duration={1000} delay={300}>
-      <div>
-      <div class="grid grid-cols-12 gap-8">
+    <div class="grid grid-cols-12 gap-8">
+      <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
         <div class="col-span-12 lg:col-span-3">
           <h2 class="text-3xl font-light tracking-tight text-foreground mb-8">
             {gridTitle}
           </h2>
           <div class="w-full h-px bg-foreground/20"></div>
         </div>
-        
-        <div class="col-span-12 lg:col-span-9">
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {gridItems.map((item, index) => (
-              <div class="group">
+      </ScrollAnimator>
+      
+      <div class="col-span-12 lg:col-span-9">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {gridItems.map((item, index) => (
+            <ScrollAnimator client:load threshold={0.2} duration={800} delay={300 + (index * 80)}>
+              <div class="group" key={`${item.label}-${index}`}>
                 <div class="border border-foreground/10 p-6 h-32 flex flex-col justify-between hover:border-foreground/30 transition-colors duration-300">
                   <div class="text-xs font-light text-foreground/50 tracking-wider uppercase">
                     {item.label}
                   </div>
-                  <div class="text-xl font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
+                  <div class="text-xl font-light text-foreground group-hover:text-foreground/70 transition-colors duration-300">
                     {item.value}
                   </div>
                   {item.description && (
@@ -68,12 +69,10 @@ const { primaryText, accentText, gridTitle, gridItems } = Astro.props;
                   )}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </ScrollAnimator>
+          ))}
         </div>
       </div>
-      </ScrollAnimator>
     </div>
   </div>
 </section>

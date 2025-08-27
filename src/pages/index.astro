@@ -2,131 +2,153 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Layout Components
-import CompanyHero from '../components/layouts/CompanyHero.astro';
+import Hero from '../components/Hero.astro';
 import HybridShowcase from '../components/layouts/HybridShowcase.astro';
-import FoundedStory from '../components/layouts/FoundedStory.astro';
-import BrandPlatform from '../components/layouts/BrandPlatform.astro';
-import BookHero from '../components/layouts/BookHero.astro';
+import Timeline from '../components/layouts/Timeline.astro';
 import ContentSplit from '../components/layouts/ContentSplit.astro';
+import CompanyMission from '../components/layouts/CompanyMission.astro';
 import DataStory from '../components/layouts/DataStory.astro';
 
 // Section Components
 import About from '../components/sections/About.astro';
 import Services from '../components/sections/Services.astro';
-import ReportsSection from '../components/sections/ReportsSection.astro';
 import CTA from '../components/sections/CTA.astro';
 import Contact from '../components/sections/Contact.tsx';
 
 // Data for components
-const contentSplitRightItems = [
-  { 
-    title: "Discovery & Strategy", 
-    description: "Deep dive into your business objectives and user needs",
-    meta: "Week 1-2"
+const hybridShowcaseItems = [
+  { label: "Typography", value: "Swiss", description: "Clean typography system" },
+  { label: "Layouts", value: "Flexible", description: "20+ layout components" },
+  { label: "Components", value: "Modern", description: "React & Astro ready" },
+  { label: "Performance", value: "Fast", description: "Optimized builds" },
+  { label: "Accessibility", value: "A11y", description: "WCAG compliant" },
+  { label: "SEO", value: "Optimized", description: "Schema & meta tags" },
+  { label: "TypeScript", value: "Safe", description: "Full type safety" },
+  { label: "CMS", value: "Ready", description: "Headless CMS support" }
+];
+
+const timelineEvents = [
+  {
+    date: "2019",
+    title: "Company Founded",
+    description: "Started with a vision to bridge the gap between innovative design and robust engineering solutions."
   },
-  { 
-    title: "Design & Prototyping", 
-    description: "Create and test solutions with real users",
-    meta: "Week 3-6"
+  {
+    date: "2020",
+    title: "First Enterprise Client",
+    description: "Delivered our first major enterprise solution, establishing our reputation for quality and reliability."
   },
-  { 
-    title: "Development & Launch", 
-    description: "Build, deploy, and optimize your solution",
-    meta: "Week 7-12"
+  {
+    date: "2021",
+    title: "Team Expansion",
+    description: "Grew to a team of 15+ specialists across design, engineering, and strategy disciplines."
   },
-  { 
-    title: "Growth & Evolution", 
-    description: "Continuous improvement and scaling",
-    meta: "Ongoing"
+  {
+    date: "2023",
+    title: "International Reach",
+    description: "Expanded operations to serve clients across 15+ countries with 24/7 support capabilities."
+  },
+  {
+    date: "2024",
+    title: "Innovation Lab",
+    description: "Launched our R&D division focusing on emerging technologies and future-forward solutions."
   }
 ];
 
-const hybridShowcaseItems = [
-  { label: "Strategy", value: "Business", description: "Strategic planning" },
-  { label: "Design", value: "Digital", description: "User experience" },
-  { label: "Technology", value: "Development", description: "Technical solutions" },
-  { label: "Analytics", value: "Data", description: "Business intelligence" },
-  { label: "Growth", value: "Marketing", description: "Brand development" },
-  { label: "Operations", value: "Consulting", description: "Process optimization" },
-  { label: "Leadership", value: "Training", description: "Team development" },
-  { label: "Innovation", value: "R&D", description: "Future solutions" }
+// Data for ContentSplit with Chart Integration
+const themeCapabilities = [
+  { 
+    title: "Swiss Design System", 
+    description: "Clean typography, precise spacing, and minimalist layouts following Swiss design principles.",
+    meta: "Design"
+  },
+  { 
+    title: "Modern Architecture", 
+    description: "Built with Astro v5, TypeScript, and Tailwind CSS for optimal performance and developer experience.",
+    meta: "Technology"
+  },
+  { 
+    title: "Component Library", 
+    description: "20+ pre-built layout components including ContentSplit, Timeline, DataStory, and more.",
+    meta: "Components"
+  },
+  { 
+    title: "CMS Integration", 
+    description: "Ready for headless CMS integration with Zod validation and structured content collections.",
+    meta: "Features"
+  }
 ];
 
-const dataStoryGrid = [
-  ["500+", "Projects Completed", "Global Reach", "99% Satisfaction"],
-  ["50+", "Team Members", "Industry Awards", "24/7 Support"],
-  ["15+", "Countries Served", "Years Experience", "Enterprise Clients"],
-  ["100M+", "Data Points", "Success Stories", "Revenue Generated"]
+// Data for DataStory component
+const performanceMetrics = [
+  ["99/100", "95%", "< 1s", "100%"],
+  ["Lighthouse", "Accessibility", "Load Time", "SEO Score"],
+  ["A+ Grade", "WCAG 2.1", "Core Vitals", "Schema.org"],
+  ["20+ Components", "TypeScript", "Astro v5", "MDX Support"]
 ];
 ---
 
 <BaseLayout 
-  title="Software Design & Engineering Company - Copenhagen" 
-  description="We create digital experiences that connect people and transform businesses through innovative design and strategic thinking."
+  title="Swiss Astro Theme - Modern Design System for Astro" 
+  description="A comprehensive Astro theme based on Swiss design principles. Clean typography, flexible layouts, TypeScript support, and CMS-ready architecture."
 >
-  <CompanyHero 
-    title="Software design & engineering company from"
-    location="Copenhagen"
-    subtitle="We create digital experiences that connect people and transform businesses through innovative design and strategic thinking."
-    ctaText="See our recent work"
-    ctaLink="#services"
+  {/* Section 1: Hero */}
+  <Hero 
+    ctaPrimaryLink="#services"
   />
 
+  {/* Section 2: Theme Capabilities Showcase */}
   <HybridShowcase 
-    primaryText="Innovation"
-    accentText="Our Expertise"
-    gridTitle="Core Services"
+    primaryText="Swiss Design"
+    accentText="Theme Capabilities"
+    gridTitle="Built-in Features"
     gridItems={hybridShowcaseItems}
   />
   
   <Services />
+
+  {/* Section 3: Design Philosophy */}
+  <CompanyMission 
+    company="Swiss Astro Theme"
+    title="Swiss Design Principles Meet Modern Web Development"
+    subtitle="Clean typography, functional layouts, and purposeful white space create digital experiences that prioritize clarity and usability. Every component is crafted with precision and attention to detail."
+    navigation={["Components", "Documentation", "Reports", "Examples"]}
+  />
+
+  {/* Section 4: Company Journey */}
+  <Timeline 
+    title="Development Timeline"
+    events={timelineEvents}
+  />
   
+  {/* Section 5: About & Trust Building */}
   <About />
-  
-  <ReportsSection />
-  
-  <FoundedStory 
-    year="1921"
-    title="Hand-crafted from only the finest materials."
-    aboutTitle="About the Brand"
-    aboutDescription="One of the oldest rug companies in the Americas. Odabashan focuses on bespoke design and manufacture of hand-woven luxury area rugs for the hospitality, design and retail industries."
-    collectionsTitle="Main Collections"
-    collections={["Hotels", "Collaborations", "Bespoke"]}
-  />
 
+  {/* Section 6: Interactive Demo with Charts */}
   <ContentSplit 
-    leftTitle="Building the Future"
-    leftDescription="We combine cutting-edge technology with human-centered design to create solutions that don't just meet today's needs, but anticipate tomorrow's challenges. Our approach is rooted in understanding both the technical possibilities and the human experiences that drive meaningful innovation."
-    rightTitle="Our Process"
-    rightItems={contentSplitRightItems}
-  />
-  
-  <BrandPlatform 
-    backText="BACK"
-    company="Vision ICL"
-    title="A simple, engaging, and educational brand-first platform"
-    subtitle="BRANDING & WEBSITE DESIGN"
-    description="Vision ICL needed a strong voice on the digital landscape, a platform on which it educates and engages people with its removable lens implant."
+    leftTitle="Theme Architecture"
+    leftDescription="This theme demonstrates modern web development practices with Swiss design principles. Built on Astro v5 with TypeScript, it provides a solid foundation for creating beautiful, performant websites with excellent developer experience."
+    rightTitle="Performance Visualization"
+    rightChart={{
+      id: "theme-performance-chart",
+      title: "Theme Performance Metrics",
+      description: "Real-time performance data showing build times, bundle size, and loading speeds",
+      embedUrl: "https://graph-zen.app?embed=true&config=eyJ0aXRsZSI6IlN3aXNzIEFzdHJvIFRoZW1lIFBlcmZvcm1hbmNlIiwic3VidGl0bGUiOiJUaGVtZSBwZXJmb3JtYW5jZSBtZXRyaWNzIGFjcm9zcyBrZXkgaW5kaWNhdG9ycyIsInR5cGUiOiJiYXIiLCJkYXRhIjpbeyJjYXRlZ29yeSI6IkxpZ2h0aG91c2UgU2NvcmUiLCJ2YWx1ZSI6OTl9LHsiY2F0ZWdvcnkiOiJBY2Nlc3NpYmlsaXR5IiwidmFsdWUiOjk1fSx7ImNhdGVnb3J5IjoiUGVyZm9ybWFuY2UiLCJ2YWx1ZSI6OTh9LHsiY2F0ZWdvcnkiOiJTRU8gU2NvcmUiLCJ2YWx1ZSI6MTAwfSx7ImNhdGVnb3J5IjoiQnVuZGxlIFNpemUiLCJ2YWx1ZSI6ODV9XSwiZGltZW5zaW9ucyI6eyJ3aWR0aCI6ODAwLCJoZWlnaHQiOjQ1MCwicHJlc2V0IjoiR29vZ2xlIFNsaWRlcyIsImFzcGVjdFJhdGlvIjoiMTY6OSJ9LCJ0aGVtZSI6eyJwYWxldHRlIjp7ImlkIjoic3dpc3MtdGhlbWUiLCJuYW1lIjoiU3dpc3MgVGhlbWUiLCJjb2xvcnMiOlsiIzMzMzMzMyIsIiM2NjY2NjYiLCIjOTk5OTk5IiwiIzAwNzFFMiIsIiMwMEIyRkYiXSwidHlwZSI6Im1pbmltYWwifSwiYm9yZGVyU3R5bGUiOiJub25lIiwiY29ybmVyU3R5bGUiOiJyb3VuZGVkIiwiYmFja2dyb3VuZCI6IndoaXRlIiwic2hvd0RhdGFMYWJlbHMiOnRydWUsInNob3dHcmlkTGluZXMiOmZhbHNlLCJhYmJyZXZpYXRpb24iOiJhdXRvIiwiZGVjaW1hbFBsYWNlcyI6ImF1dG8ifX0=",
+      height: "450px"
+    }}
   />
 
+  {/* Section 7: Performance & Metrics */}
   <DataStory 
-    year="2019"
-    storyTitle="Data-Driven Excellence"
-    storyDescription="Since our founding, we have built a comprehensive analytics infrastructure that transforms raw business data into actionable strategic insights. Our approach combines advanced statistical modeling with industry expertise to deliver meaningful recommendations that drive measurable results across diverse market sectors."
-    dataTitle="Key Metrics"
-    dataSubtitle="Performance indicators that demonstrate our impact and growth trajectory"
-    dataGrid={dataStoryGrid}
+    year="2024"
+    storyTitle="Performance Metrics"
+    storyDescription="This theme is built for speed, accessibility, and developer experience. Every component is optimized for performance while maintaining the highest standards of code quality and user experience."
+    dataTitle="Technical Excellence"
+    dataSubtitle="Measured performance across key web vitals, accessibility standards, and development metrics"
+    dataGrid={performanceMetrics}
   />
-  
-  <BookHero 
-    title="Good Omens"
-    author="Terry Pratchett and Neil Gaiman"
-    publication="Corgi Adult"
-    quote="A hilarious dark fantasy"
-    quoteAuthor="Dave Martin, The Bookbag"
-    description="In England the Antichrist is about to be born. Unfortunately, thanks to a couple of bumbling Satanic Midwives, the Antichrist has a new name: Adam knows nothing of the evil thing he is to become."
-  />
-  
+
+  {/* Section 8: Get Started */}
   <CTA />
-  <Contact client:visible />
+  <Contact client:load />
 </BaseLayout>

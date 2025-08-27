@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import ContentRenderer from '../../components/ContentRenderer.astro';
+import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await getCollection('projects');
+  
+  return projects
+    .filter(project => project.data.published)
+    .map(project => ({
+      params: { slug: project.slug },
+      props: { project }
+    }));
+};
+
+interface Props {
+  project: any;
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+// Get related projects (same category, excluding current)
+const allProjects = await getCollection('projects');
+const relatedProjects = allProjects
+  .filter(p => 
+    p.data.published && 
+    p.slug !== project.slug && 
+    p.data.category === project.data.category
+  )
+  .slice(0, 3);
+
+// Format date for display
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long'
+  });
+};
+---
+
+<BaseLayout 
+  title={project.data.seoTitle || `${project.data.title} - Project Case Study`}
+  description={project.data.seoDescription || project.data.description}
+  image={project.data.featuredImage}
+  type="article"
+>
+  <!-- Project Hero -->
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Project Info -->
+        <ScrollAnimator client:load threshold={0.1} duration={1000}>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 text-sm mb-6">
+              <span class="px-3 py-1 bg-accent/10 text-accent-foreground rounded-full">
+                {project.data.category}
+              </span>
+              <span class="px-3 py-1 bg-secondary text-secondary-foreground rounded-full">
+                {project.data.status}
+              </span>
+              {project.data.featured && (
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full">
+                  Featured
+                </span>
+              )}
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-foreground mb-4">
+              {project.data.title}
+            </h1>
+            
+            {project.data.subtitle && (
+              <p class="text-xl text-foreground/80 font-light mb-6">
+                {project.data.subtitle}
+              </p>
+            )}
+            
+            <p class="text-lg text-muted-foreground font-light leading-relaxed mb-8">
+              {project.data.description}
+            </p>
+            
+            <!-- Project Links -->
+            <div class="flex flex-wrap gap-4 mb-8">
+              {project.data.repositoryUrl && (
+                <a 
+                  href={project.data.repositoryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+                >
+                  View Code
+                </a>
+              )}
+            </div>
+            
+            <!-- Project Meta -->
+            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-border">
+              {project.data.client && (
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground mb-1">Client</dt>
+                  <dd class="text-foreground font-light">{project.data.client}</dd>
+                </div>
+              )}
+              {project.data.industry && (
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground mb-1">Industry</dt>
+                  <dd class="text-foreground font-light">{project.data.industry}</dd>
+                </div>
+              )}
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground mb-1">Timeline</dt>
+                <dd class="text-foreground font-light">
+                  {formatDate(project.data.startDate)}
+                  {project.data.endDate && ` - ${formatDate(project.data.endDate)}`}
+                </dd>
+              </div>
+              {project.data.services.length > 0 && (
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground mb-1">Services</dt>
+                  <dd class="text-foreground font-light">
+                    {project.data.services.join(', ')}
+                  </dd>
+                </div>
+              )}
+            </div>
+          </div>
+        </ScrollAnimator>
+        
+        <!-- Featured Image -->
+        <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
+          <div>
+            {project.data.featuredImage && (
+              <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
+                <img 
+                  src={project.data.featuredImage}
+                  alt={project.data.title}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
+        </ScrollAnimator>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Gallery -->
+  {project.data.gallery && project.data.gallery.length > 0 && (
+    <section class="py-16 lg:py-24 bg-accent/5">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {project.data.gallery.map((image: string, index: number) => (
+            <div class="aspect-video overflow-hidden rounded-lg bg-accent/10">
+              <img 
+                src={image}
+                alt={`${project.data.title} - Image ${index + 1}`}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Technologies Used -->
+  {project.data.technologies.length > 0 && (
+    <section class="py-16 lg:py-24">
+      <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <ScrollAnimator client:load threshold={0.2} duration={800}>
+          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8">
+            Technologies Used
+          </h2>
+          <div class="flex flex-wrap gap-3">
+            {project.data.technologies.map((tech: string) => (
+              <span class="px-4 py-2 bg-secondary text-secondary-foreground rounded-full font-light">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </ScrollAnimator>
+      </div>
+    </section>
+  )}
+
+  <!-- Project Content -->
+  <article class="py-16 lg:py-24 bg-accent/5">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Render Layout Components -->
+  <ContentRenderer components={project.data.components} />
+
+  <!-- Project Tags -->
+  {project.data.tags && project.data.tags.length > 0 && (
+    <section class="py-16 lg:py-24">
+      <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <h2 class="text-xl font-light tracking-tight text-foreground mb-6">
+          Project Tags
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {project.data.tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-light">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Projects -->
+  {relatedProjects.length > 0 && (
+    <section class="py-16 lg:py-24 bg-accent/5">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <ScrollAnimator client:load threshold={0.2} duration={800}>
+          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-12">
+            Related Projects
+          </h2>
+        </ScrollAnimator>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedProjects.map((relatedProject, index) => (
+            <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 150}>
+              <article class="group">
+                <a href={`/projects/${relatedProject.slug}`} class="block">
+                  {relatedProject.data.featuredImage && (
+                    <div class="aspect-video mb-4 overflow-hidden rounded-lg bg-accent/10">
+                      <img 
+                        src={relatedProject.data.featuredImage}
+                        alt={relatedProject.data.title}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  
+                  <div class="space-y-3">
+                    <span class="text-xs px-2 py-1 bg-accent/10 text-accent-foreground rounded-full">
+                      {relatedProject.data.category}
+                    </span>
+                    
+                    <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/70 transition-colors">
+                      {relatedProject.data.title}
+                    </h3>
+                    
+                    <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
+                      {relatedProject.data.excerpt}
+                    </p>
+                  </div>
+                </a>
+              </article>
+            </ScrollAnimator>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <ScrollAnimator client:load threshold={0.2} duration={800}>
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+          Interested in Working Together?
+        </h2>
+        <p class="text-muted-foreground font-light max-w-2xl mx-auto mb-8">
+          Let's discuss your project and explore how we can help bring your vision to life.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+          >
+            Get Started
+          </a>
+          <a 
+            href="/projects" 
+            class="inline-flex items-center justify-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+          >
+            View More Projects
+          </a>
+        </div>
+      </ScrollAnimator>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

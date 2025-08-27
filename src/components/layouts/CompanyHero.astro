@@ -23,7 +23,7 @@ const {
   <div class="max-w-6xl mx-auto px-6 lg:px-8">
     <div class="space-y-12">
       <div>
-        <ScrollAnimator client:load threshold={0.2} duration={1000}>
+        <ScrollAnimator client:visible threshold={0.2} duration={1000}>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight max-w-5xl text-foreground">
             {title} <span class="text-foreground/50">{location}</span>
           </h1>
@@ -32,7 +32,7 @@ const {
       
       {subtitle && (
         <div>
-          <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
+          <ScrollAnimator client:visible threshold={0.2} duration={1000} delay={200}>
             <p class="text-lg font-light text-foreground/70 leading-relaxed max-w-2xl">
               {subtitle}
             </p>
@@ -41,12 +41,12 @@ const {
       )}
       
       <div>
-        <ScrollAnimator client:load threshold={0.2} duration={1000} delay={400}>
+        <ScrollAnimator client:visible threshold={0.2} duration={1000} delay={400}>
           <a href={ctaLink}>
             <Button 
-              variant="outline" 
-              size="lg"
-              className="font-light text-base px-8 py-3 border-2 border-foreground/30 hover:border-foreground/60 hover:bg-foreground/10 hover:scale-105 transition-all duration-300 rounded-full"
+              variant="pill" 
+              size="pill-lg"
+              withSwissAccent={true}
             >
               {ctaText}
             </Button>

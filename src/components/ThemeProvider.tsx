@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
@@ -11,77 +11,93 @@ interface ThemeProviderProps {
 
 interface ThemeContextState {
   theme: Theme;
+  actualTheme: 'dark' | 'light';
+  setTheme: (theme: Theme) => void;
 }
 
 const defaultContextState: ThemeContextState = {
   theme: 'system',
+  actualTheme: 'light',
+  setTheme: () => {},
 };
+
 const ThemeProviderContext = createContext<ThemeContextState>(defaultContextState);
 
-const THEME_CHANGE_REQUEST_EVENT = 'theme-change-request';
-const THEME_ACTUALLY_CHANGED_EVENT = 'theme-actually-changed';
-
-export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 'astro-ui-theme' }: ThemeProviderProps) {
-  // console.log('[ThemeProvider] Initializing. Default:', defaultTheme, 'Key:', storageKey);
-
-  const [themePreference, setThemePreference] = useState<Theme>(() => {
-    if (typeof localStorage !== 'undefined') {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
+export function ThemeProvider({ 
+  children, 
+  defaultTheme = 'system', 
+  storageKey = 'astro-ui-theme' 
+}: ThemeProviderProps) {
+  // Initialize theme from localStorage or default
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem(storageKey);
+      return (stored as Theme) || defaultTheme;
     }
     return defaultTheme;
   });
 
-  useEffect(() => {
-    // console.log('[ThemeProvider] useEffect for themePreference:', themePreference);
-    if (typeof window === 'undefined') return;
-
-    const root = window.document.documentElement;
-    let actualThemeToApply: 'light' | 'dark';
-
-    if (themePreference === 'system') {
-      actualThemeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } else {
-      actualThemeToApply = themePreference;
-    }
-
-    root.classList.remove('light', 'dark');
-    root.classList.add(actualThemeToApply);
-    localStorage.setItem(storageKey, themePreference);
-    // console.log(`[ThemeProvider] Applied theme: ${actualThemeToApply}, Stored preference: ${themePreference}`);
+  // Calculate actual theme based on preference and system setting
+  const [actualTheme, setActualTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window === 'undefined') return 'light';
     
-    document.dispatchEvent(new CustomEvent(THEME_ACTUALLY_CHANGED_EVENT, { detail: { actualTheme: actualThemeToApply, preference: themePreference } }));
+    if (theme === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return theme;
+  });
 
-  }, [themePreference, storageKey]);
+  // Update theme handler
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(storageKey, newTheme);
+    }
+  };
 
-  useEffect(() => {
-    const handleThemeChangeRequest = (event: Event) => {
-      const newPreference = (event as CustomEvent).detail.theme as Theme;
-      // console.log('[ThemeProvider] Received theme change request via event:', newPreference);
-      setThemePreference(newPreference);
-    };
-    document.addEventListener(THEME_CHANGE_REQUEST_EVENT, handleThemeChangeRequest);
-    return () => {
-      document.removeEventListener(THEME_CHANGE_REQUEST_EVENT, handleThemeChangeRequest);
-    };
-  }, []);
-
+  // Apply theme to DOM and handle system changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    const updateActualTheme = () => {
+      let newActualTheme: 'dark' | 'light';
+      
+      if (theme === 'system') {
+        newActualTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      } else {
+        newActualTheme = theme;
+      }
+
+      // Update DOM
+      const root = document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.classList.add(newActualTheme);
+      root.setAttribute('data-theme', newActualTheme);
+      
+      setActualTheme(newActualTheme);
+    };
+
+    // Initial update
+    updateActualTheme();
+
+    // Listen for system theme changes when in system mode
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemChange = (e: MediaQueryListEvent) => {
-      if (themePreference === 'system') {
-        // console.log('[ThemeProvider] System theme changed, re-evaluating.');
-        setThemePreference('system'); 
+    const handleSystemChange = () => {
+      if (theme === 'system') {
+        updateActualTheme();
       }
     };
-    if (themePreference === 'system') {
-      mediaQuery.addEventListener('change', handleSystemChange);
-    }
-    return () => mediaQuery.removeEventListener('change', handleSystemChange);
-  }, [themePreference]);
 
-  const contextValue = {
-    theme: themePreference,
+    if (theme === 'system') {
+      mediaQuery.addEventListener('change', handleSystemChange);
+      return () => mediaQuery.removeEventListener('change', handleSystemChange);
+    }
+  }, [theme]);
+
+  const contextValue: ThemeContextState = {
+    theme,
+    actualTheme,
+    setTheme,
   };
 
   return (
@@ -94,8 +110,7 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
   if (context === undefined) {
-      console.warn('[useTheme] context is undefined, using fallback default.');
-      return defaultContextState; 
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 };

@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren, useEffect, useState } from 'react';
 import { useScrollTrigger } from '../../hooks/useScrollTrigger';
 
 interface ScrollAnimatorProps extends PropsWithChildren {
@@ -22,10 +22,30 @@ export function ScrollAnimator({
   staggerDelay = 100
 }: ScrollAnimatorProps) {
   const { ref, isVisible } = useScrollTrigger({ threshold, rootMargin });
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const getAnimationClasses = () => {
-    const durationClass = duration === 800 ? 'duration-800' : 'duration-1000';
-    const base = `transition-all ${durationClass}`;
+    // If user prefers reduced motion, show content immediately without animation
+    if (prefersReducedMotion) {
+      return 'opacity-100 translate-y-0';
+    }
+    
+    // Use proper Tailwind classes that exist
+    let durationClass = 'duration-700'; // Default to existing 700ms
+    if (duration === 800) durationClass = 'duration-800'; // Now available
+    else if (duration === 1000) durationClass = 'duration-1000'; // Already exists
+    else if (duration === 1200) durationClass = 'duration-1200'; // Now available
+    
+    const base = `transition-all ${durationClass} ease-out`;
     
     if (isVisible) {
       return `${base} opacity-100 translate-y-0`;
@@ -43,7 +63,7 @@ export function ScrollAnimator({
     }
   };
 
-  const style = delay > 0 ? {
+  const style = (delay > 0 && !prefersReducedMotion) ? {
     transitionDelay: isVisible ? `${delay}ms` : '0ms'
   } : undefined;
 
@@ -55,9 +75,9 @@ export function ScrollAnimator({
           <div 
             key={index}
             className={getAnimationClasses()}
-            style={{
+            style={!prefersReducedMotion ? {
               transitionDelay: isVisible ? `${index * staggerDelay}ms` : '0ms'
-            }}
+            } : undefined}
           >
             {child}
           </div>

@@ -13,6 +13,8 @@ export const useScrollTrigger = (options: UseScrollTriggerOptions = {}) => {
   useEffect(() => {
     const { threshold = 0.3, rootMargin = '0px' } = options;
     
+    if (!ref.current) return;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasTriggered) {
@@ -26,16 +28,15 @@ export const useScrollTrigger = (options: UseScrollTriggerOptions = {}) => {
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    const currentRef = ref.current;
+    observer.observe(currentRef);
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [hasTriggered]); // Remove options from dependencies to prevent infinite re-renders
+  }, [options.threshold, options.rootMargin, hasTriggered]); // Fixed dependencies
 
   return { ref, isVisible, hasTriggered };
 };

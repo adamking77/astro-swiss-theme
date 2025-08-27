@@ -109,7 +109,7 @@ const outlookData = { ...defaultData, ...data };
               </div>
               
               <div class="space-y-6">
-                {outlookData.projections.items.map((projection) => (
+                {outlookData.projections?.items?.map((projection) => (
                   // Removed animate-fade-in class and style attribute for animationDelay
                   <div class="group relative cursor-pointer hover:scale-102 transition-all duration-300 border border-foreground/10 rounded-lg p-6 hover:border-foreground/20 hover:shadow-lg">
                     <div class="grid grid-cols-12 gap-4 items-center">
@@ -159,7 +159,7 @@ const outlookData = { ...defaultData, ...data };
               </div>
               
               <div class="space-y-6">
-                {outlookData.initiatives.items.map((initiative) => (
+                {outlookData.initiatives?.items?.map((initiative) => (
                   // Removed animate-fade-in class and style attribute for animationDelay
                   <div class="group cursor-pointer hover:scale-105 transition-all duration-300">
                     <div class="border-l-2 border-foreground/10 pl-6 hover:border-foreground/30 transition-colors duration-300 py-4">

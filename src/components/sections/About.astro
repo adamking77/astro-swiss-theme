@@ -5,7 +5,7 @@ import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="grid lg:grid-cols-2 gap-24 items-center">
       <div>
-        <ScrollAnimator client:load threshold={0.2} duration={1000}>
+        <ScrollAnimator client:load threshold={0.2} duration={800}>
           <div class="space-y-12">
             <div class="space-y-8">
               <div class="text-xs font-normal text-foreground/40 tracking-widest uppercase mb-8">
@@ -41,13 +41,13 @@ import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
       </div>
       
       <div>
-        <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
+        <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
           <div class="flex items-center justify-center h-full">
             <div class="relative">
               <img
                 src="/lovable-uploads/17dfb47c-7f8c-4217-b901-c9be47f59a84.png"
                 alt="Team Profile"
-                class="w-80 h-96 object-cover rounded-lg shadow-xl"
+                class="w-80 h-96 object-cover rounded-lg shadow-xl hover-lift colored-shadow"
               />
               <div class="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary/10 to-transparent"></div>
             </div>

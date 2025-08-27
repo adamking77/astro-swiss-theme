@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Button } from '../ui/button.tsx';
 
 interface Props {
   title: string;
@@ -34,7 +35,7 @@ const {
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       <!-- Image Column -->
-      <div class="lg:col-span-4 flex justify-center items-start "" data-animate="book-image">
+      <div class="lg:col-span-4 flex justify-center items-start" data-animate="book-image">
         {imageSrc && (
           <Image
             src={imageSrc}
@@ -47,7 +48,7 @@ const {
       </div>
       
       <!-- Text Content Column -->
-      <div class="lg:col-span-8 space-y-6 "" data-animate="book-content">
+      <div class="lg:col-span-8 space-y-6" data-animate="book-content">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight text-foreground">
           {title}
         </h1>
@@ -84,12 +85,12 @@ const {
         </p>
         
         <div class="flex space-x-8 pt-6">
-          <button class="text-xs font-normal text-foreground/50 tracking-widest uppercase hover:text-foreground transition-colors">
+          <Button variant="pill-ghost" size="pill-sm">
             Summary
-          </button>
-          <button class="text-xs font-normal text-foreground tracking-widest uppercase hover:text-foreground/70 transition-colors">
+          </Button>
+          <Button variant="pill-ghost" size="pill-sm" withSwissAccent={true}>
             Recommend It
-          </button>
+          </Button>
         </div>
       </div>
     </div>
