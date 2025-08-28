@@ -47,6 +47,17 @@ const componentSchema = z.union([
   minimalListSchema,
 ]);
 
+// Content sections schema for new mixed layout system
+const contentSectionSchema = z.object({
+  type: z.enum(['markdown', 'component']),
+  id: z.string().optional(),
+  layout: z.enum(['prose', 'wide', 'full-width']).optional(),
+  component: z.string().optional(),
+  // Allow any additional properties for component data
+}).passthrough();
+
+const contentSectionsSchema = z.array(contentSectionSchema).optional();
+
 // Projects collection for portfolio items, case studies, work samples
 const projectsCollection = defineCollection({
   type: 'content',
@@ -107,6 +118,9 @@ const projectsCollection = defineCollection({
     
     // Components for enhanced content presentation
     components: z.array(componentSchema).optional(),
+    
+    // Content sections for new mixed layout system
+    contentSections: contentSectionsSchema,
   }).strict(),
 });
 
@@ -200,6 +214,9 @@ const reportsCollection = defineCollection({
     
     // Components for enhanced content presentation
     components: z.array(componentSchema).optional(),
+    
+    // Content sections for new mixed layout system
+    contentSections: contentSectionsSchema,
   }).strict(), // Use strict() instead of passthrough() for better validation
 });
 

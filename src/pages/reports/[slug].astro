@@ -16,6 +16,7 @@ import TechnologyStack from '../../components/reports/TechnologyStack.astro';
 import ChartWrapper from '../../components/reports/ChartWrapper.astro';
 import ContentRenderer from '../../components/ContentRenderer.astro';
 import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
+import { parseContentSections, getLayoutClasses, getProseClasses, processMarkdownToHTML } from '../../utils/contentSections.ts';
 
 // TypeScript interfaces for better type safety
 interface ReportSection {
@@ -83,6 +84,19 @@ const reportSections: ReportSection[] = report.sections || [
   { component: 'ExecutiveSummary', key: 'executive' },
   { component: 'DataVisualization', key: 'data-viz' }
 ];
+
+// Parse content sections for new sectioning system
+let parsedSections: any[] = [];
+if (report.contentSections && hasBodyContent) {
+  parsedSections = parseContentSections(entry.body, report.contentSections);
+  
+  // Process markdown sections to HTML
+  for (const section of parsedSections) {
+    if (section.type === 'markdown' && section.content) {
+      section.processedContent = await processMarkdownToHTML(section.content);
+    }
+  }
+}
 
 // Get related reports with error handling
 let relatedReports: RelatedReport[] = [];
@@ -183,7 +197,7 @@ try {
                 )}
               </div>
               
-              <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight text-foreground">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight text-foreground">
                 {report.title}
               </h1>
               
@@ -262,41 +276,81 @@ try {
     </div>
   </section>
 
-  <!-- Render Markdown Content if available -->
-  {hasBodyContent && Content && (
-    <section class="py-16 lg:py-20">
-      <div class="max-w-4xl mx-auto px-6 lg:px-8">
-        <article class="prose prose-lg max-w-none">
-          <Content />
-        </article>
-      </div>
-    </section>
+  <!-- New Section-Based Content Rendering -->
+  {parsedSections.length > 0 ? (
+    <!-- Render content sections with mixed layouts -->
+    <div class="content-sections">
+      {parsedSections.map((section, index) => {
+        const sectionKey = `parsed-section-${index}`;
+        
+        if (section.type === 'markdown' && section.processedContent) {
+          const layoutClasses = getLayoutClasses(section.layout);
+          const proseClasses = getProseClasses(section.layout);
+          
+          return (
+            <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 100}>
+              <section key={sectionKey} class="py-16 lg:py-20">
+                <div class={layoutClasses}>
+                  <article class={proseClasses} set:html={section.processedContent} />
+                </div>
+              </section>
+            </ScrollAnimator>
+          );
+        }
+        
+        if (section.type === 'component') {
+          return (
+            <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 100}>
+              <div key={sectionKey}>
+                <ContentRenderer sections={[section]} />
+              </div>
+            </ScrollAnimator>
+          );
+        }
+        
+        return null;
+      })}
+    </div>
+  ) : (
+    <!-- Fallback to legacy content rendering -->
+    <div>
+      {/* Render Markdown Content if available */}
+      {hasBodyContent && Content && (
+        <section class="py-16 lg:py-20">
+          <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <article class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+              <Content />
+            </article>
+          </div>
+        </section>
+      )}
+
+      {/* Render Layout Components */}
+      <ContentRenderer components={report.components} />
+
+      {/* Render structured sections if no Markdown content */}
+      {!hasBodyContent && reportSections?.map((section, index) => {
+        const sectionData = report.sectionData?.[section.key] || section.data || {};
+        const sectionKey = `section-${index}-${section.key || section.component}`;
+        return (
+          <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 150}>
+            <div key={sectionKey}>
+              {section.component === 'ExecutiveSummary' && <ExecutiveSummary data={sectionData} />}
+              {section.component === 'PerformanceMetrics' && <PerformanceMetrics data={sectionData} />}
+              {section.component === 'RegionalPerformance' && <RegionalPerformance data={sectionData} />}
+              {section.component === 'TechnologyStack' && <TechnologyStack data={sectionData} />}
+              {section.component === 'DataVisualization' && <DataVisualization data={sectionData} />}
+              {section.component === 'FinancialHighlights' && <FinancialHighlights data={sectionData} />}
+              {section.component === 'ClientInsights' && <ClientInsights data={sectionData} />}
+              {section.component === 'MarketAnalysis' && <MarketAnalysis data={sectionData} />}
+              {section.component === 'IndustryTrends' && <IndustryTrends data={sectionData} />}
+              {section.component === 'FutureOutlook' && <FutureOutlook data={sectionData} />}
+            </div>
+          </ScrollAnimator>
+        );
+      })}
+    </div>
   )}
-
-  <!-- Render Layout Components -->
-  <ContentRenderer components={report.components} />
-
-  <!-- Render structured sections if no Markdown content -->
-  {!hasBodyContent && reportSections?.map((section, index) => {
-    const sectionData = report.sectionData?.[section.key] || section.data || {};
-    const sectionKey = `section-${index}-${section.key || section.component}`;
-    return (
-      <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 150}>
-        <div key={sectionKey}>
-          {section.component === 'ExecutiveSummary' && <ExecutiveSummary data={sectionData} />}
-          {section.component === 'PerformanceMetrics' && <PerformanceMetrics data={sectionData} />}
-          {section.component === 'RegionalPerformance' && <RegionalPerformance data={sectionData} />}
-          {section.component === 'TechnologyStack' && <TechnologyStack data={sectionData} />}
-          {section.component === 'DataVisualization' && <DataVisualization data={sectionData} />}
-          {section.component === 'FinancialHighlights' && <FinancialHighlights data={sectionData} />}
-          {section.component === 'ClientInsights' && <ClientInsights data={sectionData} />}
-          {section.component === 'MarketAnalysis' && <MarketAnalysis data={sectionData} />}
-          {section.component === 'IndustryTrends' && <IndustryTrends data={sectionData} />}
-          {section.component === 'FutureOutlook' && <FutureOutlook data={sectionData} />}
-        </div>
-      </ScrollAnimator>
-    );
-  })}
 
   <!-- Related Reports -->
   {relatedReports.length > 0 && (

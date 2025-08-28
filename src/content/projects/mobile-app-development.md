@@ -24,8 +24,113 @@ gallery: [
 demoUrl: "https://apps.apple.com/app/securebank-mobile"
 seoTitle: "FinTech Mobile Banking App Development - SecureBank Digital"
 seoDescription: "Comprehensive mobile banking application with advanced security, biometric authentication, and intuitive financial management tools."
+contentSections:
+  - type: "markdown"
+    id: "overview"
+    layout: "prose"
+  - type: "component"
+    component: "Timeline"
+    title: "Development Timeline"
+    events:
+      - date: "Week 1-3"
+        title: "Research & Planning"
+        description: "Regulatory compliance research, competitor analysis, and user interviews."
+        category: "Research"
+        details: "Security requirements, user needs assessment, market analysis."
+      - date: "Week 4-7"
+        title: "Design Phase"
+        description: "Information architecture, user journeys, and high-fidelity prototypes."
+        category: "Design"
+        highlight: true
+        details: "Accessibility compliance, security-focused UX, cross-platform design."
+      - date: "Week 8-23"
+        title: "Development Sprints"
+        description: "Core banking features, security implementation, and advanced capabilities."
+        category: "Development"
+        details: "React Native development, backend services, biometric integration."
+      - date: "Week 24-25"
+        title: "Security Testing"
+        description: "Penetration testing, vulnerability assessments, and compliance verification."
+        category: "Testing"
+        highlight: true
+        details: "Third-party security audit, PCI DSS compliance verification."
+  - type: "markdown"
+    id: "features-tech"
+    layout: "wide"
+  - type: "component"
+    component: "ContentSplit"
+    leftTitle: "Security Excellence"
+    leftDescription: "Our comprehensive security approach ensures the highest level of protection for financial data while maintaining seamless user experience. Every security decision was made with regulatory compliance and user trust in mind."
+    rightTitle: "Security Features"
+    rightItems:
+      - title: "Biometric Authentication"
+        description: "Touch ID and Face ID integration with fallback PIN options."
+        meta: "Identity"
+      - title: "End-to-End Encryption"
+        description: "AES-256 encryption for all data transmission and storage."
+        meta: "Data Protection"
+      - title: "Fraud Detection"
+        description: "Real-time transaction monitoring with ML-based risk assessment."
+        meta: "Risk Management"
+      - title: "Multi-Factor Authentication"
+        description: "SMS, email, and app-based verification for sensitive operations."
+        meta: "Access Control"
+  - type: "markdown"
+    id: "results"
+    layout: "prose"
+  - type: "component"
+    component: "DataStory"
+    year: "2024"
+    storyTitle: "Mobile Banking Success"
+    storyDescription: "The FinTech mobile app achieved exceptional results across all key performance indicators, demonstrating the value of security-first development and user-centered design in the financial services sector."
+    dataTitle: "Performance Metrics"
+    dataSubtitle: "Measurable impact achieved through modern mobile development and security excellence"
+    dataGrid:
+      - ["50k+", "35k", "4.7★", "0%"]
+      - ["Downloads", "MAU", "App Rating", "Security Incidents"]
+      - ["First 3 months", "Monthly active users", "Average across platforms", "Zero breaches since launch"]
+      - ["95% retention rate", "8 min avg session", "92% satisfaction", "99.8% fraud accuracy"]
+  - type: "component"
+    component: "MinimalList"
+    title: "Technical Achievements"
+    numbered: true
+    items:
+      - title: "Cross-Platform Excellence"
+        description: "99% feature parity between iOS and Android using React Native with TypeScript."
+        meta: "Development"
+      - title: "Security Compliance"
+        description: "PCI DSS Level 1, SOC 2 Type II, ISO 27001, and GDPR compliance achieved."
+        meta: "Security"
+      - title: "Performance Optimization"
+        description: "2.3s app launch time with <0.1% crash rate and 95% offline capability."
+        meta: "Performance"
+      - title: "User Experience"
+        description: "WCAG 2.1 AA accessibility compliance with guided onboarding flow."
+        meta: "UX/UI"
+      - title: "Real-time Processing"
+        description: "<500ms API response time handling $2.5M daily transaction volume."
+        meta: "Backend"
+  - type: "component"
+    component: "ContentSplit"
+    leftTitle: "Mobile Excellence"
+    leftDescription: "Our React Native development approach delivered native performance across platforms while maintaining a single codebase, reducing development time by 40% and ensuring consistent user experience."
+    rightTitle: "Technology Stack"
+    rightItems:
+      - title: "React Native & TypeScript"
+        description: "Cross-platform mobile development with type safety and native performance."
+        meta: "Frontend"
+      - title: "Node.js & PostgreSQL"
+        description: "Scalable backend services with ACID-compliant transaction processing."
+        meta: "Backend"
+      - title: "AWS Infrastructure"
+        description: "Container orchestration with ECS, managed database with RDS, and global CDN."
+        meta: "Infrastructure"
+      - title: "Security Suite"
+        description: "Auth0, SSL pinning, OAuth 2.0, and Vault integration for comprehensive protection."
+        meta: "Security"
 ---
 
+<!-- Section: overview -->
 ## Project Overview
 
 SecureBank Digital needed a modern mobile banking application to compete with leading FinTech companies while maintaining the highest security standards. The goal was to create an intuitive, feature-rich app that would encourage digital adoption among traditional banking customers.
@@ -53,6 +158,7 @@ Creating a mobile banking app presented unique challenges:
 - **Offline Capability**: Core functions available without internet
 - **Accessibility**: WCAG 2.1 AA compliance throughout
 
+<!-- Section: features-tech -->
 ## Key Features
 
 ### Core Banking Functions
@@ -119,6 +225,7 @@ Creating a mobile banking app presented unique challenges:
 - Compliance verification
 - Third-party security audit
 
+<!-- Section: results -->
 ## Results & Metrics
 
 ### User Adoption

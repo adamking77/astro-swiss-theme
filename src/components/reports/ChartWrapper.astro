@@ -30,21 +30,18 @@ const mockData = data || [
 ];
 ---
 
-<div class="chart-wrapper my-8 p-6 bg-foreground/5 rounded-lg">
-  {title && <h3 class="text-xl font-light text-foreground mb-2">{title}</h3>}
-  {description && <p class="text-foreground/70 mb-4">{description}</p>}
-  
-  <div class="chart-container">
+<div class="chart-wrapper my-8">
+  <div class="chart-container mb-4">
     {embedUrl ? (
       <!-- If embed URL is provided, use iframe -->
       <iframe 
         src={embedUrl}
         width="100%"
         height={height}
-        frameborder="0"
         scrolling="no"
-        class="rounded"
+        class="rounded border-0"
         loading="lazy"
+        title="Chart visualization"
       ></iframe>
     ) : (
       <!-- Fallback to placeholder if no embed URL -->
@@ -57,6 +54,9 @@ const mockData = data || [
       </div>
     )}
   </div>
+  
+  {title && <h3 class="text-xl font-light text-foreground mb-2">{title}</h3>}
+  {description && <p class="text-foreground/70">{description}</p>}
 </div>
 
 <style>

@@ -6,7 +6,6 @@ import Hero from '../components/Hero.astro';
 import HybridShowcase from '../components/layouts/HybridShowcase.astro';
 import Timeline from '../components/layouts/Timeline.astro';
 import ContentSplit from '../components/layouts/ContentSplit.astro';
-import CompanyMission from '../components/layouts/CompanyMission.astro';
 import DataStory from '../components/layouts/DataStory.astro';
 
 // Section Components
@@ -31,27 +30,39 @@ const timelineEvents = [
   {
     date: "2019",
     title: "Company Founded",
-    description: "Started with a vision to bridge the gap between innovative design and robust engineering solutions."
+    description: "Started with a vision to bridge the gap between innovative design and robust engineering solutions.",
+    category: "Foundation",
+    details: "Established in Geneva with a focus on Swiss design principles and precision engineering."
   },
   {
     date: "2020",
     title: "First Enterprise Client",
-    description: "Delivered our first major enterprise solution, establishing our reputation for quality and reliability."
+    description: "Delivered our first major enterprise solution, establishing our reputation for quality and reliability.",
+    category: "Growth",
+    details: "Successfully launched digital transformation project for Fortune 500 client."
   },
   {
     date: "2021",
     title: "Team Expansion",
-    description: "Grew to a team of 15+ specialists across design, engineering, and strategy disciplines."
+    description: "Grew to a team of 15+ specialists across design, engineering, and strategy disciplines.",
+    category: "Scale",
+    highlight: true,
+    details: "Expanded into UX research, data science, and cloud architecture expertise."
   },
   {
     date: "2023",
     title: "International Reach",
-    description: "Expanded operations to serve clients across 15+ countries with 24/7 support capabilities."
+    description: "Expanded operations to serve clients across 15+ countries with 24/7 support capabilities.",
+    category: "Global",
+    details: "Opened offices in London and New York, established 24/7 development cycles."
   },
   {
     date: "2024",
     title: "Innovation Lab",
-    description: "Launched our R&D division focusing on emerging technologies and future-forward solutions."
+    description: "Launched our R&D division focusing on emerging technologies and future-forward solutions.",
+    category: "Innovation",
+    highlight: true,
+    details: "Research focus on AI/ML integration, sustainable design, and accessibility standards."
   }
 ];
 
@@ -107,24 +118,16 @@ const performanceMetrics = [
   
   <Services />
 
-  {/* Section 3: Design Philosophy */}
-  <CompanyMission 
-    company="Swiss Astro Theme"
-    title="Swiss Design Principles Meet Modern Web Development"
-    subtitle="Clean typography, functional layouts, and purposeful white space create digital experiences that prioritize clarity and usability. Every component is crafted with precision and attention to detail."
-    navigation={["Components", "Documentation", "Reports", "Examples"]}
-  />
-
-  {/* Section 4: Company Journey */}
+  {/* Section 3: Company Journey */}
   <Timeline 
     title="Development Timeline"
     events={timelineEvents}
   />
   
-  {/* Section 5: About & Trust Building */}
+  {/* Section 4: About & Trust Building */}
   <About />
 
-  {/* Section 6: Interactive Demo with Charts */}
+  {/* Section 5: Interactive Demo with Charts */}
   <ContentSplit 
     leftTitle="Theme Architecture"
     leftDescription="This theme demonstrates modern web development practices with Swiss design principles. Built on Astro v5 with TypeScript, it provides a solid foundation for creating beautiful, performant websites with excellent developer experience."
@@ -133,12 +136,12 @@ const performanceMetrics = [
       id: "theme-performance-chart",
       title: "Theme Performance Metrics",
       description: "Real-time performance data showing build times, bundle size, and loading speeds",
-      embedUrl: "https://graph-zen.app?embed=true&config=eyJ0aXRsZSI6IlN3aXNzIEFzdHJvIFRoZW1lIFBlcmZvcm1hbmNlIiwic3VidGl0bGUiOiJUaGVtZSBwZXJmb3JtYW5jZSBtZXRyaWNzIGFjcm9zcyBrZXkgaW5kaWNhdG9ycyIsInR5cGUiOiJiYXIiLCJkYXRhIjpbeyJjYXRlZ29yeSI6IkxpZ2h0aG91c2UgU2NvcmUiLCJ2YWx1ZSI6OTl9LHsiY2F0ZWdvcnkiOiJBY2Nlc3NpYmlsaXR5IiwidmFsdWUiOjk1fSx7ImNhdGVnb3J5IjoiUGVyZm9ybWFuY2UiLCJ2YWx1ZSI6OTh9LHsiY2F0ZWdvcnkiOiJTRU8gU2NvcmUiLCJ2YWx1ZSI6MTAwfSx7ImNhdGVnb3J5IjoiQnVuZGxlIFNpemUiLCJ2YWx1ZSI6ODV9XSwiZGltZW5zaW9ucyI6eyJ3aWR0aCI6ODAwLCJoZWlnaHQiOjQ1MCwicHJlc2V0IjoiR29vZ2xlIFNsaWRlcyIsImFzcGVjdFJhdGlvIjoiMTY6OSJ9LCJ0aGVtZSI6eyJwYWxldHRlIjp7ImlkIjoic3dpc3MtdGhlbWUiLCJuYW1lIjoiU3dpc3MgVGhlbWUiLCJjb2xvcnMiOlsiIzMzMzMzMyIsIiM2NjY2NjYiLCIjOTk5OTk5IiwiIzAwNzFFMiIsIiMwMEIyRkYiXSwidHlwZSI6Im1pbmltYWwifSwiYm9yZGVyU3R5bGUiOiJub25lIiwiY29ybmVyU3R5bGUiOiJyb3VuZGVkIiwiYmFja2dyb3VuZCI6IndoaXRlIiwic2hvd0RhdGFMYWJlbHMiOnRydWUsInNob3dHcmlkTGluZXMiOmZhbHNlLCJhYmJyZXZpYXRpb24iOiJhdXRvIiwiZGVjaW1hbFBsYWNlcyI6ImF1dG8ifX0=",
+      embedUrl: "https://graph-zen.app?embed=true&config=eyJ0aXRsZSI6IlJldmVudWUgKOKCrCkgcHJvamVjdGlvbnMgZm9yIEdyYXBoWmVuIiwic3VidGl0bGUiOiJSZXZlbnVlIGJ5IHllYXIgZm9yIGVhY2ggc2NlbmFyaW8iLCJ0eXBlIjoibGluZSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XSwiZGltZW5zaW9ucyI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwLCJwcmVzZXQiOiJHb29nbGUgU2xpZGVzIC8gUG93ZXJQb2ludCIsImFzcGVjdFJhdGlvIjoiMTY6OSJ9LCJ0aGVtZSI6eyJwYWxldHRlIjp7ImlkIjoiYmx1ZXMtbW9ubyIsIm5hbWUiOiJCbHVlcyIsImNvbG9ycyI6WyIjMUUzQThBIiwiIzI1NjNFQiIsIiMzQjgyRjYiLCIjNjBBNUZBIiwiIzkzQzVGRCJdLCJ0eXBlIjoibW9ub2Nocm9tZSJ9LCJib3JkZXJTdHlsZSI6Im5vbmUiLCJib3JkZXJDb2xvciI6IiM2QjcyODAiLCJjb3JuZXJTdHlsZSI6InJvdW5kZWQiLCJiYWNrZ3JvdW5kIjoiYmxhY2siLCJzb3J0SGlnaFRvTG93IjpmYWxzZSwic2hvd0RhdGFMYWJlbHMiOnRydWUsInNob3dQZXJjZW50YWdlcyI6ZmFsc2UsInNob3dHcmlkTGluZXMiOnRydWUsImFiYnJldmlhdGlvbiI6ImF1dG8iLCJkZWNpbWFsUGxhY2VzIjoiYXV0byIsImZpeGVkRGVjaW1hbENvdW50IjowfSwibXVsdGlTZXJpZXMiOnRydWUsInNlcmllcyI6W3sibmFtZSI6IkRhdGFzZXQgMSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XX0seyJuYW1lIjoiRGF0YXNldCAyIiwiZGF0YSI6W3sic2NlbmFyaW8iOiJDYXRlZ29yeSBBIiwidmFsdWUiOjEzNDAwMCwiZGlzcGxheVZhbHVlIjoiMTM0ayJ9LHsic2NlbmFyaW8iOiJDYXRlZ29yeSBCIiwidmFsdWUiOjI5ODAwMCwiZGlzcGxheVZhbHVlIjoiMjk4ayJ9LHsic2NlbmFyaW8iOiJDYXRlZ29yeSBDIiwidmFsdWUiOjU4OTAwMCwiZGlzcGxheVZhbHVlIjoiNTg5ayJ9XX1dfQ==",
       height: "450px"
     }}
   />
 
-  {/* Section 7: Performance & Metrics */}
+  {/* Section 6: Performance & Metrics */}
   <DataStory 
     year="2024"
     storyTitle="Performance Metrics"
@@ -148,7 +151,7 @@ const performanceMetrics = [
     dataGrid={performanceMetrics}
   />
 
-  {/* Section 8: Get Started */}
+  {/* Section 7: Get Started */}
   <CTA />
   <Contact client:load />
 </BaseLayout>

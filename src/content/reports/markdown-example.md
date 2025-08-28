@@ -11,6 +11,75 @@ tags: ["Markdown", "Formatting", "Guide", "Documentation"]
 readTime: "10 min read"
 featured: true
 templateVersion: "1.0"
+contentSections:
+  - type: "markdown"
+    id: "introduction"
+    layout: "prose"
+  - type: "component"
+    component: "PerformanceMetrics"
+    data:
+      title: "Key Performance Indicators"
+      subtitle: "Measurable outcomes across core business functions"
+      metrics:
+        - title: "Revenue Growth"
+          value: "127%"
+          description: "Year-over-year revenue increase"
+          trend: "up"
+        - title: "Customer Satisfaction"
+          value: "94%"
+          description: "Net Promoter Score improvement"
+          trend: "up"
+        - title: "Market Share"
+          value: "23%"
+          description: "Industry market position"
+          trend: "stable"
+        - title: "Operational Efficiency"
+          value: "31%"
+          description: "Cost reduction achieved"
+          trend: "up"
+  - type: "markdown"
+    id: "analysis"
+    layout: "wide"
+  - type: "component"
+    component: "ContentSplit"
+    leftTitle: "Advanced Analytics Framework"
+    leftDescription: "Our comprehensive analysis framework combines quantitative data modeling with qualitative market insights to deliver actionable business intelligence that drives strategic decision-making and operational excellence."
+    rightTitle: "Key Methodologies"
+    rightItems:
+      - title: "Data Mining & Pattern Recognition"
+        description: "Advanced algorithms identify hidden patterns in large datasets, revealing trends and correlations that inform strategic planning."
+        meta: "Phase 1"
+      - title: "Predictive Modeling"
+        description: "Statistical models forecast future trends and outcomes, enabling proactive business strategies and risk mitigation."
+        meta: "Phase 2"
+      - title: "Market Sentiment Analysis"
+        description: "Natural language processing techniques analyze market sentiment from multiple sources to gauge consumer behavior."
+        meta: "Phase 3"
+    reversed: false
+  - type: "markdown"
+    id: "implementation"
+    layout: "prose"
+  - type: "component"
+    component: "DataVisualization"
+    data:
+      title: "Market Performance Dashboard"
+      subtitle: "Real-time analytics and trend visualization"
+      charts:
+        - id: "revenue-trends"
+          title: "Revenue Growth Trends"
+          type: "line"
+          timeframe: "12 months"
+        - id: "market-segments"
+          title: "Market Segmentation Analysis"
+          type: "pie"
+          timeframe: "current"
+        - id: "performance-metrics"
+          title: "KPI Performance Matrix"
+          type: "bar"
+          timeframe: "quarterly"
+  - type: "markdown"
+    id: "conclusions"
+    layout: "prose"
 components:
   - type: "ContentSplit"
     leftTitle: "Advanced Analytics"
@@ -45,10 +114,12 @@ components:
         meta: "2-3 weeks"
 ---
 
+<!-- Section: introduction -->
 # Complete Markdown Formatting Guide
 
 This comprehensive report demonstrates **all** available Markdown formatting options within the Astro Swiss Theme. It serves as both a reference guide and a showcase of how to create professional, well-formatted reports.
 
+<!-- Section: analysis -->
 ## Text Formatting
 
 ### Basic Text Styles
@@ -204,6 +275,7 @@ This is a [reference link][ref1] and another [reference link][ref2].
 
 ___
 
+<!-- Section: implementation -->
 ## Special Elements
 
 ### Emojis
@@ -270,6 +342,7 @@ This is a sentence with a footnote[^1].
 
 > **Caution:** This requires careful consideration.
 
+<!-- Section: conclusions -->
 ## Best Practices Summary
 
 1. **Maintain heading hierarchy** - Use proper heading levels (H1, H2, H3) for document structure

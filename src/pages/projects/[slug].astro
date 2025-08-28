@@ -4,6 +4,7 @@ import { getCollection, getEntry } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import ContentRenderer from '../../components/ContentRenderer.astro';
 import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
+import { parseContentSections, getLayoutClasses, getProseClasses, processMarkdownToHTML } from '../../utils/contentSections.ts';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await getCollection('projects');
@@ -22,6 +23,19 @@ interface Props {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
+
+// Parse content sections for new sectioning system
+let parsedSections: any[] = [];
+if (project.data.contentSections && project.body) {
+  parsedSections = parseContentSections(project.body, project.data.contentSections);
+  
+  // Process markdown sections to HTML
+  for (const section of parsedSections) {
+    if (section.type === 'markdown' && section.content) {
+      section.processedContent = await processMarkdownToHTML(section.content);
+    }
+  }
+}
 
 // Get related projects (same category, excluding current)
 const allProjects = await getCollection('projects');
@@ -69,7 +83,7 @@ const formatDate = (dateString: string) => {
               )}
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-foreground mb-4">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground mb-4">
               {project.data.title}
             </h1>
             
@@ -188,17 +202,76 @@ const formatDate = (dateString: string) => {
     </section>
   )}
 
-  <!-- Project Content -->
-  <article class="py-16 lg:py-24 bg-accent/5">
-    <div class="max-w-4xl mx-auto px-6 lg:px-8">
-      <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
-        <Content />
-      </div>
+  <!-- New Section-Based Content Rendering -->
+  {parsedSections.length > 0 ? (
+    <!-- Render content sections with mixed layouts -->
+    <div class="content-sections animate-sections">
+      {parsedSections.map((section, index) => {
+        const sectionKey = `parsed-section-${index}`;
+        
+        if (section.type === 'markdown' && section.processedContent) {
+          const layoutClasses = getLayoutClasses(section.layout);
+          const proseClasses = getProseClasses(section.layout);
+          
+          return (
+            <section 
+              class={`section-animate py-24 lg:py-32 ${index % 2 === 0 ? 'bg-white' : 'bg-accent/5'}`} 
+              style={`animation-delay: ${index * 100}ms`}
+              data-section-id={section.id || `section-${index}`}
+            >
+              <div class={layoutClasses}>
+                <article class={proseClasses} set:html={section.processedContent} />
+              </div>
+            </section>
+          );
+        }
+        
+        if (section.type === 'markdown' && !section.processedContent) {
+          // Skip empty markdown sections
+          if (import.meta.env.DEV) {
+            console.warn(`Skipping empty markdown section: ${section.id || index}`);
+          }
+          return null;
+        }
+        
+        if (section.type === 'component') {
+          if (!section.component) {
+            if (import.meta.env.DEV) {
+              console.warn(`Skipping component section without component name at index ${index}`);
+            }
+            return null;
+          }
+          
+          return (
+            <div 
+              class="section-animate" 
+              style={`animation-delay: ${index * 100}ms`}
+              data-section-id={`component-${section.component}-${index}`}
+            >
+              <ContentRenderer sections={[section]} />
+            </div>
+          );
+        }
+        
+        return null;
+      })}
     </div>
-  </article>
+  ) : (
+    <!-- Fallback to legacy content rendering -->
+    <div>
+      {/* Project Content */}
+      <article class="py-16 lg:py-24 bg-accent/5">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+          <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+            <Content />
+          </div>
+        </div>
+      </article>
 
-  <!-- Render Layout Components -->
-  <ContentRenderer components={project.data.components} />
+      {/* Render Layout Components */}
+      <ContentRenderer components={project.data.components} />
+    </div>
+  )}
 
   <!-- Project Tags -->
   {project.data.tags && project.data.tags.length > 0 && (
@@ -301,4 +374,79 @@ const formatDate = (dateString: string) => {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* CSS-only section animations */
+  .animate-sections {
+    overflow-x: hidden;
+  }
+  
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+  
+  /* Progressive enhancement with intersection observer */
+  .content-sections.js-enabled .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: none;
+  }
+  
+  .content-sections.js-enabled .section-animate.in-view {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
 </style>
+
+<script>
+  // Progressive enhancement for section animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelector('.content-sections');
+    if (!sections) return;
+    
+    // Only enhance if user doesn't prefer reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    
+    sections.classList.add('js-enabled');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '50px',
+      threshold: 0.1
+    });
+    
+    document.querySelectorAll('.section-animate').forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
