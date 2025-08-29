@@ -28,9 +28,9 @@ const services = [
 ];
 ---
 
-<section id="services" class="py-32 lg:py-40">
-  <div class="max-w-5xl mx-auto px-16 lg:px-20">
-    <div class="grid lg:grid-cols-12 gap-24">
+<section id="services" class="py-16 lg:py-32 xl:py-40">
+  <div class="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 xl:px-20">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-24">
       <div class="lg:col-span-4">
         <div class="space-y-8 sticky top-32" data-animate="services-title">
           <h2 class="text-3xl md:text-4xl lg:text-5xl font-light leading-tight tracking-tight text-foreground">
@@ -48,7 +48,7 @@ const services = [
               data-animate="service-item"
               data-delay={index * 100}
             >
-              <div class="grid grid-cols-12 gap-8 items-start py-8 border-b border-foreground/10 last:border-b-0 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md group-hover:bg-gradient-to-r group-hover:from-background group-hover:to-accent/30 transition-all duration-300 rounded-lg px-6 cursor-pointer">
+              <div class="grid grid-cols-12 gap-4 lg:gap-8 items-start py-6 lg:py-8 border-b border-foreground/10 last:border-b-0 group-hover:border-accent group-hover:scale-105 group-hover:shadow-md group-hover:bg-gradient-to-r group-hover:from-background group-hover:to-accent/30 transition-all duration-300 rounded-lg px-4 lg:px-6 cursor-pointer">
                 <div class="col-span-2">
                   <span class="text-lg font-light text-foreground/30 group-hover:text-foreground/50 transition-colors duration-300">
                     {service.number}

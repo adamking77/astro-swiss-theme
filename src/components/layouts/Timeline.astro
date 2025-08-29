@@ -37,9 +37,9 @@ const { title, events } = Astro.props;
     </ScrollAnimator>
 
     <!-- Alternating Timeline -->
-    <div class="space-y-10 relative">
+    <div class="space-y-12 lg:space-y-10 relative">
       <!-- Center Line -->
-      <div class="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20"></div>
+      <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20"></div>
       
       {events.map((event, index) => {
         const isHighlight = event.highlight;
@@ -47,13 +47,13 @@ const { title, events } = Astro.props;
         
         return (
           <ScrollAnimator client:load threshold={0.3} duration={600} delay={index * 100}>
-            <div class="relative grid grid-cols-2 gap-8 items-center">
+            <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
               {/* Left Side Content (for even-indexed events) */}
               {isLeft ? (
-                <div class="text-right pr-8">
+                <div class="text-center lg:text-right lg:pr-8">
                   <div class="inline-block max-w-sm p-4 bg-card border border-primary/10 rounded-lg shadow-sm hover:shadow-md hover:shadow-foreground/10 dark:hover:shadow-foreground/20 hover:scale-[1.02] hover:bg-gradient-to-r hover:from-background hover:to-accent/20 dark:hover:to-accent/15 hover:border-accent/50 active:scale-100 transition-all duration-300 cursor-pointer group timeline-content">
                     <div class="space-y-3">
-                      <div class="flex items-center justify-end gap-3">
+                      <div class="flex items-center justify-center lg:justify-end gap-3">
                         <time class={`inline-flex items-center justify-center text-xs font-medium px-2 py-1 rounded-full ${isHighlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'}`}>
                           {event.date}
                         </time>
@@ -78,10 +78,10 @@ const { title, events } = Astro.props;
               
               {/* Right Side Content (for odd-indexed events) */}
               {!isLeft ? (
-                <div class="text-left pl-8">
+                <div class="text-center lg:text-left lg:pl-8">
                   <div class="inline-block max-w-sm p-4 bg-card border border-primary/10 rounded-lg shadow-sm hover:shadow-md hover:shadow-foreground/10 dark:hover:shadow-foreground/20 hover:scale-[1.02] hover:bg-gradient-to-r hover:from-background hover:to-accent/20 dark:hover:to-accent/15 hover:border-accent/50 active:scale-100 transition-all duration-300 cursor-pointer group timeline-content">
                     <div class="space-y-3">
-                      <div class="flex items-center gap-3">
+                      <div class="flex items-center justify-center lg:justify-start gap-3">
                         <time class={`inline-flex items-center justify-center text-xs font-medium px-2 py-1 rounded-full ${isHighlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'}`}>
                           {event.date}
                         </time>
