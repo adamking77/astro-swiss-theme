@@ -1,10 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import ProjectTemplate from '../../components/templates/ProjectTemplate.astro';
+import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
-import ContentRenderer from '../../components/ContentRenderer.astro';
-import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
-import { parseContentSections, getLayoutClasses, getProseClasses, processMarkdownToHTML } from '../../utils/contentSections.ts';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await getCollection('projects');
@@ -24,19 +22,6 @@ interface Props {
 const { project } = Astro.props;
 const { Content } = await project.render();
 
-// Parse content sections for new sectioning system
-let parsedSections: any[] = [];
-if (project.data.contentSections && project.body) {
-  parsedSections = parseContentSections(project.body, project.data.contentSections);
-  
-  // Process markdown sections to HTML
-  for (const section of parsedSections) {
-    if (section.type === 'markdown' && section.content) {
-      section.processedContent = await processMarkdownToHTML(section.content);
-    }
-  }
-}
-
 // Get related projects (same category, excluding current)
 const allProjects = await getCollection('projects');
 const relatedProjects = allProjects
@@ -47,13 +32,6 @@ const relatedProjects = allProjects
   )
   .slice(0, 3);
 
-// Format date for display
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long'
-  });
-};
 ---
 
 <BaseLayout 
@@ -62,276 +40,50 @@ const formatDate = (dateString: string) => {
   image={project.data.featuredImage}
   type="article"
 >
-  <!-- Project Hero -->
-  <section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <!-- Project Info -->
-        <ScrollAnimator client:load threshold={0.1} duration={1000}>
-          <div>
-            <div class="flex flex-wrap items-center gap-2 text-sm mb-6">
-              <span class="px-3 py-1 bg-accent/10 text-accent-foreground rounded-full">
-                {project.data.category}
-              </span>
-              <span class="px-3 py-1 bg-secondary text-secondary-foreground rounded-full">
-                {project.data.status}
-              </span>
-              {project.data.featured && (
-                <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full">
-                  Featured
-                </span>
-              )}
-            </div>
-            
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground mb-4">
-              {project.data.title}
-            </h1>
-            
-            {project.data.subtitle && (
-              <p class="text-xl text-foreground/80 font-light mb-6">
-                {project.data.subtitle}
-              </p>
-            )}
-            
-            <p class="text-lg text-muted-foreground font-light leading-relaxed mb-8">
-              {project.data.description}
-            </p>
-            
-            <!-- Project Links -->
-            <div class="flex flex-wrap gap-4 mb-8">
-              {project.data.repositoryUrl && (
-                <a 
-                  href={project.data.repositoryUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
-                >
-                  View Code
-                </a>
-              )}
-            </div>
-            
-            <!-- Project Meta -->
-            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-border">
-              {project.data.client && (
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground mb-1">Client</dt>
-                  <dd class="text-foreground font-light">{project.data.client}</dd>
-                </div>
-              )}
-              {project.data.industry && (
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground mb-1">Industry</dt>
-                  <dd class="text-foreground font-light">{project.data.industry}</dd>
-                </div>
-              )}
-              <div>
-                <dt class="text-sm font-medium text-muted-foreground mb-1">Timeline</dt>
-                <dd class="text-foreground font-light">
-                  {formatDate(project.data.startDate)}
-                  {project.data.endDate && ` - ${formatDate(project.data.endDate)}`}
-                </dd>
-              </div>
-              {project.data.services.length > 0 && (
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground mb-1">Services</dt>
-                  <dd class="text-foreground font-light">
-                    {project.data.services.join(', ')}
-                  </dd>
-                </div>
-              )}
-            </div>
-          </div>
-        </ScrollAnimator>
-        
-        <!-- Featured Image -->
-        <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
-          <div>
-            {project.data.featuredImage && (
-              <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
-                <img 
-                  src={project.data.featuredImage}
-                  alt={project.data.title}
-                  class="w-full h-full object-cover"
-                />
-              </div>
-            )}
-          </div>
-        </ScrollAnimator>
-      </div>
-    </div>
-  </section>
-
-  <!-- Project Gallery -->
-  {project.data.gallery && project.data.gallery.length > 0 && (
-    <section class="py-16 lg:py-24 bg-accent/5">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {project.data.gallery.map((image: string, index: number) => (
-            <div class="aspect-video overflow-hidden rounded-lg bg-accent/10">
-              <img 
-                src={image}
-                alt={`${project.data.title} - Image ${index + 1}`}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Technologies Used -->
-  {project.data.technologies.length > 0 && (
-    <section class="py-16 lg:py-24">
-      <div class="max-w-4xl mx-auto px-6 lg:px-8">
-        <ScrollAnimator client:load threshold={0.2} duration={800}>
-          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8">
-            Technologies Used
-          </h2>
-          <div class="flex flex-wrap gap-3">
-            {project.data.technologies.map((tech: string) => (
-              <span class="px-4 py-2 bg-secondary text-secondary-foreground rounded-full font-light">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </ScrollAnimator>
-      </div>
-    </section>
-  )}
-
-  <!-- New Section-Based Content Rendering -->
-  {parsedSections.length > 0 ? (
-    <!-- Render content sections with mixed layouts -->
-    <div class="content-sections animate-sections">
-      {parsedSections.map((section, index) => {
-        const sectionKey = `parsed-section-${index}`;
-        
-        if (section.type === 'markdown' && section.processedContent) {
-          const layoutClasses = getLayoutClasses(section.layout);
-          const proseClasses = getProseClasses(section.layout);
-          
-          return (
-            <section 
-              class={`section-animate py-24 lg:py-32 ${index % 2 === 0 ? 'bg-white' : 'bg-accent/5'}`} 
-              style={`animation-delay: ${index * 100}ms`}
-              data-section-id={section.id || `section-${index}`}
-            >
-              <div class={layoutClasses}>
-                <article class={proseClasses} set:html={section.processedContent} />
-              </div>
-            </section>
-          );
-        }
-        
-        if (section.type === 'markdown' && !section.processedContent) {
-          // Skip empty markdown sections
-          if (import.meta.env.DEV) {
-            console.warn(`Skipping empty markdown section: ${section.id || index}`);
-          }
-          return null;
-        }
-        
-        if (section.type === 'component') {
-          if (!section.component) {
-            if (import.meta.env.DEV) {
-              console.warn(`Skipping component section without component name at index ${index}`);
-            }
-            return null;
-          }
-          
-          return (
-            <div 
-              class="section-animate" 
-              style={`animation-delay: ${index * 100}ms`}
-              data-section-id={`component-${section.component}-${index}`}
-            >
-              <ContentRenderer sections={[section]} />
-            </div>
-          );
-        }
-        
-        return null;
-      })}
-    </div>
-  ) : (
-    <!-- Fallback to legacy content rendering -->
-    <div>
-      {/* Project Content */}
-      <article class="py-16 lg:py-24 bg-accent/5">
-        <div class="max-w-4xl mx-auto px-6 lg:px-8">
-          <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
-            <Content />
-          </div>
-        </div>
-      </article>
-
-      {/* Render Layout Components */}
-      <ContentRenderer components={project.data.components} />
-    </div>
-  )}
-
-  <!-- Project Tags -->
-  {project.data.tags && project.data.tags.length > 0 && (
-    <section class="py-16 lg:py-24">
-      <div class="max-w-4xl mx-auto px-6 lg:px-8">
-        <h2 class="text-xl font-light tracking-tight text-foreground mb-6">
-          Project Tags
-        </h2>
-        <div class="flex flex-wrap gap-2">
-          {project.data.tags.map((tag: string) => (
-            <span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-light">
-              #{tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  <!-- Use Simplified Project Template -->
+  <ProjectTemplate entry={project} Content={Content} />
 
   <!-- Related Projects -->
   {relatedProjects.length > 0 && (
     <section class="py-16 lg:py-24 bg-accent/5">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <ScrollAnimator client:load threshold={0.2} duration={800}>
-          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-12">
+        <div class="section-animate text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground">
             Related Projects
           </h2>
-        </ScrollAnimator>
+        </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {relatedProjects.map((relatedProject, index) => (
-            <ScrollAnimator client:load threshold={0.2} duration={800} delay={index * 150}>
-              <article class="group">
-                <a href={`/projects/${relatedProject.slug}`} class="block">
-                  {relatedProject.data.featuredImage && (
-                    <div class="aspect-video mb-4 overflow-hidden rounded-lg bg-accent/10">
-                      <img 
-                        src={relatedProject.data.featuredImage}
-                        alt={relatedProject.data.title}
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  
-                  <div class="space-y-3">
+            <article class="section-animate group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300">
+              <a href={`/projects/${relatedProject.slug}`} class="block">
+                {relatedProject.data.featuredImage && (
+                  <div class="aspect-video overflow-hidden bg-accent/10">
+                    <img 
+                      src={relatedProject.data.featuredImage}
+                      alt={relatedProject.data.title}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-3">
                     <span class="text-xs px-2 py-1 bg-accent/10 text-accent-foreground rounded-full">
                       {relatedProject.data.category}
                     </span>
-                    
-                    <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/70 transition-colors">
-                      {relatedProject.data.title}
-                    </h3>
-                    
-                    <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
-                      {relatedProject.data.excerpt}
-                    </p>
                   </div>
-                </a>
-              </article>
-            </ScrollAnimator>
+                  
+                  <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/70 transition-colors mb-3">
+                    {relatedProject.data.title}
+                  </h3>
+                  
+                  <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
+                    {relatedProject.data.excerpt || relatedProject.data.description}
+                  </p>
+                </div>
+              </a>
+            </article>
           ))}
         </div>
       </div>
@@ -341,7 +93,7 @@ const formatDate = (dateString: string) => {
   <!-- CTA Section -->
   <section class="py-16 lg:py-24">
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-      <ScrollAnimator client:load threshold={0.2} duration={800}>
+      <div class="section-animate">
         <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
           Interested in Working Together?
         </h2>
@@ -362,7 +114,7 @@ const formatDate = (dateString: string) => {
             View More Projects
           </a>
         </div>
-      </ScrollAnimator>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -374,18 +126,16 @@ const formatDate = (dateString: string) => {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-  /* CSS-only section animations */
-  .animate-sections {
-    overflow-x: hidden;
-  }
   
   .section-animate {
     opacity: 0;
     transform: translateY(2rem);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     animation: fadeInUp 0.8s ease-out forwards;
   }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
   
   @keyframes fadeInUp {
     from {
@@ -398,55 +148,11 @@ const formatDate = (dateString: string) => {
     }
   }
   
-  /* Reduce motion for accessibility */
   @media (prefers-reduced-motion: reduce) {
     .section-animate {
       animation: none;
       opacity: 1;
       transform: none;
-      transition: none;
     }
-  }
-  
-  /* Progressive enhancement with intersection observer */
-  .content-sections.js-enabled .section-animate {
-    opacity: 0;
-    transform: translateY(2rem);
-    animation: none;
-  }
-  
-  .content-sections.js-enabled .section-animate.in-view {
-    animation: fadeInUp 0.8s ease-out forwards;
   }
 </style>
-
-<script>
-  // Progressive enhancement for section animations
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelector('.content-sections');
-    if (!sections) return;
-    
-    // Only enhance if user doesn't prefer reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-    
-    sections.classList.add('js-enabled');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      rootMargin: '50px',
-      threshold: 0.1
-    });
-    
-    document.querySelectorAll('.section-animate').forEach(section => {
-      observer.observe(section);
-    });
-  });
-</script>

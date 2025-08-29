@@ -47,16 +47,6 @@ const componentSchema = z.union([
   minimalListSchema,
 ]);
 
-// Content sections schema for new mixed layout system
-const contentSectionSchema = z.object({
-  type: z.enum(['markdown', 'component']),
-  id: z.string().optional(),
-  layout: z.enum(['prose', 'wide', 'full-width']).optional(),
-  component: z.string().optional(),
-  // Allow any additional properties for component data
-}).passthrough();
-
-const contentSectionsSchema = z.array(contentSectionSchema).optional();
 
 // Projects collection for portfolio items, case studies, work samples
 const projectsCollection = defineCollection({
@@ -118,9 +108,6 @@ const projectsCollection = defineCollection({
     
     // Components for enhanced content presentation
     components: z.array(componentSchema).optional(),
-    
-    // Content sections for new mixed layout system
-    contentSections: contentSectionsSchema,
   }).strict(),
 });
 
@@ -179,6 +166,7 @@ const reportsCollection = defineCollection({
     title: z.string().min(1, "Title is required"),
     subtitle: z.string().optional(),
     description: z.string().min(10, "Description must be at least 10 characters"),
+    tldr: z.string().max(800, "TLDR should be concise (max 800 characters)").optional(),
     
     // Publishing information - Key fields required for consistency
     author: z.string().min(1, "Author is required"),
@@ -205,7 +193,7 @@ const reportsCollection = defineCollection({
     lastModified: z.string().optional(),
     
     // SEO and Social Media - Optional but important
-    image: z.string().url("Image must be a valid URL").optional(),
+    featuredImage: z.string().url("Featured image must be a valid URL").optional(),
     canonicalUrl: z.string().url("Canonical URL must be valid").optional(),
     
     // Performance tracking - Optional analytics
@@ -214,14 +202,11 @@ const reportsCollection = defineCollection({
     
     // Components for enhanced content presentation
     components: z.array(componentSchema).optional(),
-    
-    // Content sections for new mixed layout system
-    contentSections: contentSectionsSchema,
   }).strict(), // Use strict() instead of passthrough() for better validation
 });
 
 export const collections = {
   reports: reportsCollection,
-  projects: projectsCollection,
+  projects: projectsCollection,  
   pages: pagesCollection,
 };

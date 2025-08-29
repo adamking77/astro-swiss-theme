@@ -4,6 +4,8 @@ slug: "markdown-example"
 title: "Complete Markdown Formatting Guide"
 subtitle: "Demonstrating all available Markdown features in reports"
 description: "A comprehensive guide showing how to use all Markdown formatting options within the Astro Swiss Theme for professional reports."
+tldr: "This guide demonstrates all Markdown formatting capabilities in the Astro Swiss Theme. Key features: text formatting, tables, code blocks, links, and visual elements. Result: professional, readable reports with consistent styling and comprehensive typography support."
+featuredImage: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&h=600&fit=crop"
 author: "Astro Team"
 publishDate: "June 2025"
 category: "Technology"
@@ -11,345 +13,214 @@ tags: ["Markdown", "Formatting", "Guide", "Documentation"]
 readTime: "10 min read"
 featured: true
 templateVersion: "1.0"
-contentSections:
-  - type: "markdown"
-    id: "introduction"
-    layout: "prose"
-  - type: "component"
-    component: "PerformanceMetrics"
-    data:
-      title: "Key Performance Indicators"
-      subtitle: "Measurable outcomes across core business functions"
-      metrics:
-        - title: "Revenue Growth"
-          value: "127%"
-          description: "Year-over-year revenue increase"
-          trend: "up"
-        - title: "Customer Satisfaction"
-          value: "94%"
-          description: "Net Promoter Score improvement"
-          trend: "up"
-        - title: "Market Share"
-          value: "23%"
-          description: "Industry market position"
-          trend: "stable"
-        - title: "Operational Efficiency"
-          value: "31%"
-          description: "Cost reduction achieved"
-          trend: "up"
-  - type: "markdown"
-    id: "analysis"
-    layout: "wide"
-  - type: "component"
-    component: "ContentSplit"
-    leftTitle: "Advanced Analytics Framework"
-    leftDescription: "Our comprehensive analysis framework combines quantitative data modeling with qualitative market insights to deliver actionable business intelligence that drives strategic decision-making and operational excellence."
-    rightTitle: "Key Methodologies"
-    rightItems:
-      - title: "Data Mining & Pattern Recognition"
-        description: "Advanced algorithms identify hidden patterns in large datasets, revealing trends and correlations that inform strategic planning."
-        meta: "Phase 1"
-      - title: "Predictive Modeling"
-        description: "Statistical models forecast future trends and outcomes, enabling proactive business strategies and risk mitigation."
-        meta: "Phase 2"
-      - title: "Market Sentiment Analysis"
-        description: "Natural language processing techniques analyze market sentiment from multiple sources to gauge consumer behavior."
-        meta: "Phase 3"
-    reversed: false
-  - type: "markdown"
-    id: "implementation"
-    layout: "prose"
-  - type: "component"
-    component: "DataVisualization"
-    data:
-      title: "Market Performance Dashboard"
-      subtitle: "Real-time analytics and trend visualization"
-      charts:
-        - id: "revenue-trends"
-          title: "Revenue Growth Trends"
-          type: "line"
-          timeframe: "12 months"
-        - id: "market-segments"
-          title: "Market Segmentation Analysis"
-          type: "pie"
-          timeframe: "current"
-        - id: "performance-metrics"
-          title: "KPI Performance Matrix"
-          type: "bar"
-          timeframe: "quarterly"
-  - type: "markdown"
-    id: "conclusions"
-    layout: "prose"
-components:
-  - type: "ContentSplit"
-    leftTitle: "Advanced Analytics"
-    leftDescription: "Our comprehensive analysis framework combines quantitative data modeling with qualitative market insights to deliver actionable business intelligence that drives strategic decision-making and operational excellence."
-    rightTitle: "Key Methodologies"
-    rightItems:
-      - title: "Data Mining & Pattern Recognition"
-        description: "Advanced algorithms identify hidden patterns in large datasets, revealing trends and correlations that inform strategic planning."
-        meta: "Phase 1"
-      - title: "Predictive Modeling"
-        description: "Statistical models forecast future trends and outcomes, enabling proactive business strategies and risk mitigation."
-        meta: "Phase 2"
-      - title: "Market Sentiment Analysis"
-        description: "Natural language processing techniques analyze market sentiment from multiple sources to gauge consumer behavior."
-        meta: "Phase 3"
-    reversed: false
-  - type: "MinimalList"
-    title: "Implementation Framework"
-    numbered: true
-    items:
-      - title: "Discovery & Requirements Gathering"
-        description: "Comprehensive stakeholder interviews and system analysis to understand current capabilities and future needs."
-        meta: "2-3 weeks"
-      - title: "Technical Architecture Design"
-        description: "Create scalable, maintainable system architecture that supports both current requirements and future growth."
-        meta: "1-2 weeks"
-      - title: "Pilot Implementation"
-        description: "Deploy limited scope pilot to validate approach, identify issues, and refine processes before full rollout."
-        meta: "3-4 weeks"
-      - title: "Full Deployment & Training"
-        description: "Complete system deployment with comprehensive user training and change management support."
-        meta: "2-3 weeks"
+published: true
 ---
 
-<!-- Section: introduction -->
-# Complete Markdown Formatting Guide
+## Introduction
 
-This comprehensive report demonstrates **all** available Markdown formatting options within the Astro Swiss Theme. It serves as both a reference guide and a showcase of how to create professional, well-formatted reports.
+This comprehensive guide demonstrates all available Markdown formatting options within the Astro Swiss Theme. It serves as both a reference for content creators and a showcase of the theme's typographic capabilities.
 
-<!-- Section: analysis -->
 ## Text Formatting
 
-### Basic Text Styles
+### Basic Formatting
 
-- **Bold text** - Use double asterisks or double underscores
-- *Italic text* - Use single asterisk or single underscore
-- ~~Strikethrough text~~ - Use double tildes
-- `Inline code` - Use backticks for technical terms
-- **_Combination formatting_** - Combine bold and italic
+This paragraph demonstrates **bold text**, *italic text*, and ***bold italic text***. You can also use `inline code` to highlight technical terms or code snippets.
 
-### Superscript and Subscript
+### Lists and Organization
 
-This is regular text with super^script^ and sub~script~ text.
+#### Unordered Lists
+- First level item
+- Another first level item
+  - Nested item
+  - Another nested item
+    - Third level nesting
+    - More third level content
+- Back to first level
 
-## Headings
+#### Ordered Lists
+1. First numbered item
+2. Second numbered item
+   1. Nested numbered item
+   2. Another nested item
+3. Third numbered item
 
-# Heading 1
-## Heading 2
-### Heading 3
-#### Heading 4
-##### Heading 5
-###### Heading 6
+### Blockquotes
 
-Alternative heading styles:
-
-Heading 1
-=========
-
-Heading 2
----------
-
-## Lists
-
-### Ordered Lists
-
-1. First item
-2. Second item
-   1. Sub-item
-   2. Another sub-item
-3. Third item
-
-### Unordered Lists
-
-- First item
-- Second item
-  - Sub-item
-  - Another sub-item
-- Third item
-
-### Task Lists
-
-- [x] Completed task
-- [ ] Incomplete task
-- [ ] Another incomplete task
-
-## Code
-
-### Inline Code
-
-Use `const example = true;` for inline code references.
+> This is a blockquote. It's useful for highlighting important information, client testimonials, or quotes from stakeholders.
+> 
+> Blockquotes can span multiple paragraphs and maintain consistent formatting throughout the document.
 
 ### Code Blocks
 
 ```javascript
-// JavaScript example
-function calculateMetrics(data) {
-  const results = data.map(item => ({
-    id: item.id,
-    value: item.value * 2,
-    processed: true
-  }));
-  
-  return results.filter(item => item.value > 100);
+// Example JavaScript code
+function calculateGrowth(initial, final) {
+  return ((final - initial) / initial) * 100;
 }
+
+const growthRate = calculateGrowth(1000, 1270);
+console.log(`Growth rate: ${growthRate}%`);
 ```
 
 ```python
 # Python example
-def process_data(data):
-    results = []
-    for item in data:
-        if item['value'] > 100:
-            results.append(item)
-    return results
+def analyze_performance(data):
+    """Analyze performance metrics from data."""
+    return {
+        'avg': sum(data) / len(data),
+        'max': max(data),
+        'min': min(data)
+    }
+
+metrics = analyze_performance([85, 92, 78, 96, 88])
 ```
 
-```json
-{
-  "name": "astro-swiss-theme",
-  "version": "1.0.0",
-  "description": "A professional Astro theme with Swiss design principles"
-}
-```
+## Tables and Data
 
-## Tables
+### Performance Metrics
 
-| Feature        | Status | Priority | Estimated Time |
-| -------------- | ------ | -------- | -------------- |
-| Markdown Support | ✅ Complete | High | 2 weeks |
-| Chart Integration | ✅ Complete | High | 3 weeks |
-| CMS Integration | 🔄 In Progress | Medium | 4 weeks |
-| Mobile Optimization | ⏳ Planned | Low | 2 weeks |
+| Metric | Q1 2024 | Q2 2024 | Q3 2024 | Change |
+|--------|---------|---------|---------|--------|
+| Revenue | $2.1M | $2.4M | $2.8M | +33% |
+| Users | 15,420 | 18,930 | 22,105 | +43% |
+| Retention | 84% | 87% | 91% | +7% |
+| NPS Score | 72 | 78 | 85 | +13 |
 
-### Alignment in Tables
+### Feature Comparison
 
-| Left Align | Center Align | Right Align |
-| :--------- | :----------: | ----------: |
-| Value 1    |   Value 2    |      Value 3 |
-| Value 4    |   Value 5    |      Value 6 |
+| Feature | Basic Plan | Professional | Enterprise |
+|---------|------------|--------------|------------|
+| Storage | 10GB | 100GB | Unlimited |
+| Users | 5 | 50 | Unlimited |
+| Support | Email | Priority | Dedicated |
+| Analytics | Basic | Advanced | Custom |
+| Price | $9/month | $29/month | Custom |
 
 ## Links and References
 
+### Internal Links
+- [Introduction](#introduction)
+- [Performance Metrics](#performance-metrics)
+- [Technical Implementation](#technical-implementation)
+
 ### External Links
+- [Astro Documentation](https://astro.build)
+- [Markdown Guide](https://www.markdownguide.org)
+- [React Documentation](https://react.dev)
 
-[Visit Astro's website](https://astro.build)
+## Visual Elements
 
-### Internal References
+### Horizontal Rules
 
-- [Text Formatting](#text-formatting)
-- [Headings](#headings)
-- [Lists](#lists)
-
-### Reference Links
-
-This is a [reference link][ref1] and another [reference link][ref2].
-
-[ref1]: https://example.com
-[ref2]: https://astro.build
-
-## Images
-
-![Alt text](https://placehold.co/600x400?text=Example+Image)
-
-## Blockquotes
-
-> "Markdown is intended to be as easy-to-read and easy-to-write as is feasible."
-> 
-> — John Gruber, Creator of Markdown
-
-### Nested Blockquotes
-
-> This is a blockquote
->
-> > This is a nested blockquote
->
-> Back to the first blockquote
-
-## Horizontal Rules
+Content above the horizontal rule.
 
 ---
 
-***
+Content below the horizontal rule.
 
-___
+### Task Lists
 
-<!-- Section: implementation -->
-## Special Elements
+- [x] Project planning completed
+- [x] Design phase finished
+- [x] Development phase in progress
+- [ ] Testing phase pending
+- [ ] Deployment phase pending
+- [ ] Post-launch optimization
 
-### Emojis
+## Technical Implementation
 
-Astro is awesome! 🚀✨
+### System Architecture
 
-### Escaping Characters
+The implementation follows a modular approach:
 
-\*This text is not italic\*
+1. **Frontend Layer**
+   - React components for UI
+   - Tailwind CSS for styling
+   - TypeScript for type safety
 
-### Abbreviations
+2. **Backend Layer**
+   - Node.js with Express
+   - PostgreSQL database
+   - Redis for caching
 
-*[HTML]: Hyper Text Markup Language
-*[W3C]: World Wide Web Consortium
+3. **Infrastructure**
+   - AWS hosting
+   - CDN for global distribution
+   - Monitoring and logging
 
-The HTML specification is maintained by the W3C.
+### Code Examples
 
-## Embedded Charts
+#### Configuration File
+```json
+{
+  "name": "astro-swiss-theme",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0",
+    "react": "^18.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
+```
 
-The Astro Swiss Theme supports embedding interactive charts from external charting services using iframe embed codes. Here's a real example using GraphZen:
+#### Database Schema
+```sql
+CREATE TABLE reports (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE NOT NULL,
+  content TEXT,
+  author VARCHAR(100),
+  publish_date DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-<ChartWrapper 
-  id="revenue-projections"
-  title="Revenue (₺) projections for GraphZen"
-  description="Revenue by year for each scenario"
-  embedUrl="https://graph-zen.app?embed=true&config=eyJ0aXRsZSI6IlJldmVudWUgKOKCrCkgcHJvamVjdGlvbnMgZm9yIEdyYXBoWmVuIiwic3VidGl0bGUiOiJSZXZlbnVlIGJ5IHllYXIgZm9yIGVhY2ggc2NlbmFyaW8iLCJ0eXBlIjoibGluZSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XSwiZGltZW5zaW9ucyI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwLCJwcmVzZXQiOiJHb29nbGUgU2xpZGVzIC8gUG93ZXJQb2ludCIsImFzcGVjdFJhdGlvIjoiMTY6OSJ9LCJ0aGVtZSI6eyJwYWxldHRlIjp7ImlkIjoiY29ycG9yYXRlLXJlZmluZWQiLCJuYW1lIjoiQ29ycG9yYXRlIiwiY29sb3JzIjpbIiM0MzM4Q0EiLCIjMDM2OUExIiwiIzA0Nzg1NyIsIiNCNDUzMDkiLCIjQjkxQzFDIl0sInR5cGUiOiJjb2xvcmZ1bCJ9LCJib3JkZXJTdHlsZSI6Im5vbmUiLCJib3JkZXJDb2xvciI6IiM2QjcyODAiLCJjb3JuZXJTdHlsZSI6InJvdW5kZWQiLCJiYWNrZ3JvdW5kIjoiYmxhY2siLCJzb3J0SGlnaFRvTG93IjpmYWxzZSwic2hvd0RhdGFMYWJlbHMiOnRydWUsInNob3dQZXJjZW50YWdlcyI6ZmFsc2UsInNob3dHcmlkTGluZXMiOnRydWUsImFiYnJldmlhdGlvbiI6ImF1dG8iLCJkZWNpbWFsUGxhY2VzIjoiYXV0byIsImZpeGVkRGVjaW1hbENvdW50IjowfSwibXVsdGlTZXJpZXMiOnRydWUsInNlcmllcyI6W3sibmFtZSI6IkRhdGFzZXQgMSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XX0seyJuYW1lIjoiRGF0YXNldCAyIiwiZGF0YSI6W3sic2NlbmFyaW8iOiJDYXRlZ29yeSBBIiwidmFsdWUiOjY3MDAwLCJkaXNwbGF5VmFsdWUiOiI2N2sifSx7InNjZW5hcmlvIjoiQ2F0ZWdvcnkgQiIsInZhbHVlIjoyNDgwMDAsImRpc3BsYXlWYWx1ZSI6IjI0OGsifSx7InNjZW5hcmlvIjoiQ2F0ZWdvcnkgQyIsInZhbHVlIjo1NzUwMDAsImRpc3BsYXlWYWx1ZSI6IjU3NWsifV19XX0="
-  height="500px" />
+CREATE INDEX idx_reports_slug ON reports(slug);
+CREATE INDEX idx_reports_publish_date ON reports(publish_date);
+```
 
-You can also embed charts directly using HTML iframes in Markdown:
+## Best Practices
 
-<div class="responsive-iframe-wrapper">
-  <iframe src="https://graph-zen.app?embed=true&config=eyJ0aXRsZSI6IlJldmVudWUgKOKCrCkgcHJvamVjdGlvbnMgZm9yIEdyYXBoWmVuIiwic3VidGl0bGUiOiJSZXZlbnVlIGJ5IHllYXIgZm9yIGVhY2ggc2NlbmFyaW8iLCJ0eXBlIjoibGluZSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XSwiZGltZW5zaW9ucyI6eyJ3aWR0aCI6MTkyMCwiaGVpZ2h0IjoxMDgwLCJwcmVzZXQiOiJHb29nbGUgU2xpZGVzIC8gUG93ZXJQb2ludCIsImFzcGVjdFJhdGlvIjoiMTY6OSJ9LCJ0aGVtZSI6eyJwYWxldHRlIjp7ImlkIjoiY29ycG9yYXRlLXJlZmluZWQiLCJuYW1lIjoiQ29ycG9yYXRlIiwiY29sb3JzIjpbIiM0MzM4Q0EiLCIjMDM2OUExIiwiIzA0Nzg1NyIsIiNCNDUzMDkiLCIjQjkxQzFDIl0sInR5cGUiOiJjb2xvcmZ1bCJ9LCJib3JkZXJTdHlsZSI6Im5vbmUiLCJib3JkZXJDb2xvciI6IiM2QjcyODAiLCJjb3JuZXJTdHlsZSI6InJvdW5kZWQiLCJiYWNrZ3JvdW5kIjoiYmxhY2siLCJzb3J0SGlnaFRvTG93IjpmYWxzZSwic2hvd0RhdGFMYWJlbHMiOnRydWUsInNob3dQZXJjZW50YWdlcyI6ZmFsc2UsInNob3dHcmlkTGluZXMiOnRydWUsImFiYnJldmlhdGlvbiI6ImF1dG8iLCJkZWNpbWFsUGxhY2VzIjoiYXV0byIsImZpeGVkRGVjaW1hbENvdW50IjowfSwibXVsdGlTZXJpZXMiOnRydWUsInNlcmllcyI6W3sibmFtZSI6IkRhdGFzZXQgMSIsImRhdGEiOlt7InNjZW5hcmlvIjoiWWVhciAxIENvbnNlcnZhdGl2ZSIsInZhbHVlIjoxODAwMDB9LHsic2NlbmFyaW8iOiJZZWFyIDIgR3Jvd3RoIFNjZW5hcmlvIiwidmFsdWUiOjM2MDAwMH0seyJzY2VuYXJpbyI6IlllYXIgMyBTY2FsZSBTY2VuYXJpbyIsInZhbHVlIjo2OTAwMDB9XX0seyJuYW1lIjoiRGF0YXNldCAyIiwiZGF0YSI6W3sic2NlbmFyaW8iOiJDYXRlZ29yeSBBIiwidmFsdWUiOjY3MDAwLCJkaXNwbGF5VmFsdWUiOiI2N2sifSx7InNjZW5hcmlvIjoiQ2F0ZWdvcnkgQiIsInZhbHVlIjoyNDgwMDAsImRpc3BsYXlWYWx1ZSI6IjI0OGsifSx7InNjZW5hcmlvIjoiQ2F0ZWdvcnkgQyIsInZhbHVlIjo1NzUwMDAsImRpc3BsYXlWYWx1ZSI6IjU3NWsifV19XX0=" width="100%" height="100%" frameborder="0"></iframe>
-</div>
+### Content Structure
+1. Start with a clear introduction
+2. Use headers to organize content hierarchically
+3. Include visual breaks with horizontal rules
+4. End sections with clear conclusions
 
-## Mathematical Expressions
+### Formatting Guidelines
+- Use **bold** for important terms and concepts
+- Use *italics* for emphasis and foreign terms  
+- Use `code formatting` for technical terms
+- Keep paragraphs concise and focused
 
-When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are:
+### Table Design
+- Include headers for all columns
+- Align numeric data consistently
+- Use clear, descriptive column names
+- Include units of measurement where applicable
 
-$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
+## Data Visualization Notes
 
-## Definition Lists
+While this Markdown guide shows text-based formatting, the Astro Swiss Theme also supports:
 
-Astro
-: A modern static site builder that delivers faster websites.
+- Interactive charts and graphs
+- Data visualization components
+- Progress indicators and metrics
+- Timeline components
 
-Markdown
-: A lightweight markup language with plain text formatting syntax.
+These advanced features are available through the theme's component system and can be integrated seamlessly with Markdown content.
 
-## Footnotes
+## Conclusion
 
-This is a sentence with a footnote[^1].
+This guide demonstrates the comprehensive Markdown formatting capabilities available in the Astro Swiss Theme. The combination of standard Markdown syntax with the theme's styling creates professional, readable reports that effectively communicate complex information.
 
-[^1]: This is the footnote content.
+The theme handles all formatting consistently, ensuring that your content maintains visual coherence across different sections and report types.
 
-## Alerts and Callouts
+---
 
-> **Note:** This is an important note that readers should pay attention to.
-
-> **Tip:** This is a helpful tip for implementing the features discussed.
-
-> ⚠️ **Warning:** This is a critical warning about potential issues.
-
-> **Important:** This is crucial information.
-
-> **Caution:** This requires careful consideration.
-
-<!-- Section: conclusions -->
-## Best Practices Summary
-
-1. **Maintain heading hierarchy** - Use proper heading levels (H1, H2, H3) for document structure
-2. **Use lists appropriately** - Choose ordered vs unordered lists based on content type
-3. **Format code correctly** - Use language identifiers for syntax highlighting
-4. **Organize data clearly** - Present tabular data in well-formatted tables
-5. **Emphasize key points** - Use formatting to draw attention to important information
-6. **Embed visualizations** - Use ChartWrapper components to enhance data presentation
-
-By following these best practices, you can create professional reports that effectively communicate complex information to your audience.
+*For more information about advanced formatting options and component integration, refer to the theme documentation or contact our support team.*
