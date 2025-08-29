@@ -103,7 +103,7 @@ class NavigationManager {
   }
 
   applyScrolledStyles() {
-    this.nav.classList.add('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-foreground/10');
+    this.nav.classList.add('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-foreground/10');
     this.nav.classList.remove('bg-transparent');
     
     this.navContentContainer.classList.remove('h-20', 'lg:h-24');
@@ -124,7 +124,7 @@ class NavigationManager {
   }
 
   removeScrolledStyles() {
-    this.nav.classList.remove('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-foreground/10');
+    this.nav.classList.remove('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-foreground/10');
     this.nav.classList.add('bg-transparent');
     
     this.navContentContainer.classList.remove('h-14', 'lg:h-16');
