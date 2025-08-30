@@ -64,14 +64,14 @@
     font-weight: 300;
     /* Font display optimization */
     font-display: swap;
-    /* Prevent horizontal overflow */
-    overflow-x: hidden;
+    /* Prevent horizontal overflow without breaking sticky positioning */
+    overflow-x: clip;
   }
   
   html {
     scroll-behavior: smooth;
-    /* Prevent horizontal overflow at root level */
-    overflow-x: hidden;
+    /* Prevent horizontal overflow at root level without breaking sticky positioning */
+    overflow-x: clip;
   }
   
   /* Mobile-specific optimizations */
