@@ -136,7 +136,7 @@ export default {
             'h1': {
               fontWeight: '300',
               fontSize: '2.25rem', // text-4xl
-              lineHeight: '1.1',
+              lineHeight: '1.3',
               letterSpacing: '-0.025em', // tracking-tight
             },
             'h2': {
